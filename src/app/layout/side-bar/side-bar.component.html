@@ -1,0 +1,83 @@
+<nav id="sidebar" [ngClass]="isToggled ? 'active' : ''">
+  <div class="sidebar-header">
+    <h6 class="text-center">
+      <a [routerLink]="['']">
+        <img
+          src="../../../assets/images/logo/Amazon_white_logo.png"
+          alt=""
+          style="width: 100px"
+        />
+      </a>
+    </h6>
+    <strong style="font-size: 0.8rem">Admin</strong>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li>
+      <a [routerLink]="['/']">
+        <i class="fas fa-chart-pie"></i>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/advertisements']">
+        <i class="fas fa-ad"></i>
+        Advertisements
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/categories']">
+        <i class="fas fa-list"></i>
+        Categories
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/orders']">
+        <i class="fas fa-shopping-cart"></i>
+        Orders
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/payment-methods']">
+        <i class="fas fa-money-check-alt"></i>
+        Payment Methods
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/products']">
+        <i class="fab fa-product-hunt"></i>
+        Products
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/reviews']">
+        <i class="fas fa-star-half-alt"></i>
+        Reviews
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/sellers']">
+        <i class="fas fa-address-card"></i>
+        Sellers
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/shipments']">
+        <i class="fas fa-shipping-fast"></i>
+        Shipments
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/users']">
+        <i class="fas fa-users"></i>
+        Users
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/warehouse']">
+        <i class="fas fa-warehouse"></i>
+        Warehouse
+      </a>
+    </li>
+  </ul>
+</nav>

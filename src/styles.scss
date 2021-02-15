@@ -19,18 +19,21 @@ a:focus {
   align-items: stretch;
 }
 
-#content {
+#middle-content {
   width: 100%;
   min-height: 100vh;
   transition: all 0.3s;
   font-size: 0.9rem;
 }
 
-table {
-  table-layout: fixed;
-}
+#main-content {
+  padding: 20px;
+  table {
+    table-layout: fixed;
+  }
 
-th,
-td {
-  word-wrap: break-word;
+  th,
+  td {
+    word-wrap: break-word;
+  }
 }

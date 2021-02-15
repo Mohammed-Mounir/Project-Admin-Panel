@@ -1,11 +1,13 @@
 <div class="wrapper">
   <!-- Siderbar Component -->
   <app-side-bar></app-side-bar>
-  <div id="content">
+  <div id="middle-content">
     <!-- Header Component -->
     <app-header></app-header>
-    <!-- Router Dynamic Component -->
-    <router-outlet></router-outlet>
+    <div id="main-content">
+      <!-- Router Dynamic Component -->
+      <router-outlet></router-outlet>
+    </div>
     <!-- Footer Component -->
     <app-footer></app-footer>
   </div>

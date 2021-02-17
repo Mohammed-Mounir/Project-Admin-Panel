@@ -1,1 +1,79 @@
-<p>advertisements works!</p>
+<div class="contianer-fluid">
+  <div class="row">
+    <div class="col-12"></div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Manage Reviews</th>
+          </tr>
+          <tr>
+            <th scope="col">Advertisement ID</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Advertisement Title</th>
+            <th scope="col">Published Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="col">
+              <input type="text" />
+            </td>
+            <td scope="col">
+              <input type="text" />
+            </td>
+            <td scope="col">
+              <input type="text" />
+            </td>
+            <td scope="col">
+              <input type="text" />
+            </td>
+          </tr>
+          <tr *ngFor="let advertisement of advertisements let i = index">
+            <td>{{ advertisement._id  }}</td>
+            <td>{{ advertisement.companyName }}</td>
+            <td>{{ advertisement.AdTitle }}</td>
+            <td>{{ advertisement.date['publishedDate'] }}</td>
+            <td>
+              <i class="fas fa-eye  view" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"> </i>
+              <i class="fas fa-edit mx-2"></i>
+              <i class="fas fa-trash-alt  trash" (click)='delete(i)'></i>
+
+
+              <div class="modal fade" id="adv{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Advertsements Details</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul id="modalList">
+                        <li>Advertisement id : {{advertisement._id }}</li>
+                        <li>Company name : {{ advertisement.companyName }}</li>
+                        <li>Advertisement title : {{advertisement.AdTitle }} </li>
+                        <li>Advertisement description : {{advertisement.AdDescription }} </li>
+                        <li>Published date : {{advertisement.date.publishedDate}} </li>
+                        <li>Expiration date : {{advertisement.date.expirationDate}} </li>
+                        <li>Website url : {{advertisement.websiteUrl}} </li>
+                        <li><img id="adImg" [src]="advertisement.img"> </li>
+                      </ul>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

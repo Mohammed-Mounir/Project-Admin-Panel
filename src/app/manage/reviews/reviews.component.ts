@@ -16,4 +16,4 @@ export class ReviewsComponent implements OnInit {
     this.reviews = this.reviewsService.getAllReviews();
     console.log(this.reviews);
   }
-}
+} 

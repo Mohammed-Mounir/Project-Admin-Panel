@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Seller } from 'src/app/_model/sellers';
+import { SellersService } from 'src/app/_services/sellers.service';
 
 @Component({
   selector: 'app-sellers',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sellers.component.scss']
 })
 export class SellersComponent implements OnInit {
+  sellers: Seller[] = [];
 
-  constructor() { }
+  constructor(private sellersService: SellersService) { }
 
   ngOnInit(): void {
+    this.sellers = this.sellersService.getAllSellers();
+    console.log(this.sellers); 
+
+  }
+
+  delete(i) {
+    this.sellers.splice(i, 1);
   }
 
 }

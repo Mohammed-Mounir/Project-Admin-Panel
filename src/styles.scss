@@ -6,10 +6,6 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-p {
-  font-family: "Poppins", sans-serif;
-}
-
 a,
 a:hover,
 a:focus {
@@ -18,21 +14,26 @@ a:focus {
   transition: all 0.3s;
 }
 
-/* ---------------------------------------------------
-    SIDEBAR STYLE
------------------------------------------------------ */
-
 .wrapper {
   display: flex;
   align-items: stretch;
 }
 
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-
-#content {
+#middle-content {
   width: 100%;
   min-height: 100vh;
   transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+#main-content {
+  padding: 20px;
+  table {
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    word-wrap: break-word;
+  }
 }

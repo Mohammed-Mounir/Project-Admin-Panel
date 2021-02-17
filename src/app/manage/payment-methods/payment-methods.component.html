@@ -27,14 +27,72 @@
               <input type="text" />
             </td>
           </tr>
-          <tr *ngFor="let paymentMethod of paymentMethods">
+          <tr *ngFor="let paymentMethod of paymentMethods; let i = index">
             <td>{{ paymentMethod.id }}</td>
             <td>{{ paymentMethod.paymentMethod }}</td>
             <td>{{ paymentMethod.cardCompany }}</td>
             <td>
-              <i class="fas fa-eye"></i>
+              <i
+                class="fas fa-eye view"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#pm' + i"
+              >
+              </i>
               <i class="fas fa-edit mx-2"></i>
-              <i class="fas fa-trash-alt"></i>
+              <i class="fas fa-trash-alt trash" (click)="onDelete(i)"></i>
+
+              <div
+                class="modal fade"
+                id="pm{{ i }}"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Payment Methods Details
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul id="modalList">
+                        <li>Payment Method ID : {{ paymentMethod.id }}</li>
+                        <li>
+                          Payment Method Type :
+                          {{ paymentMethod.paymentMethod }}
+                        </li>
+                        <li *ngIf="paymentMethod.cardCompany">
+                          Payment Method Card Company :
+                          {{ paymentMethod.cardCompany }}
+                        </li>
+                        <li>
+                          <img
+                            class="mx-auto mt-5"
+                            id="pmImg"
+                            [src]="paymentMethod.img"
+                          />
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>

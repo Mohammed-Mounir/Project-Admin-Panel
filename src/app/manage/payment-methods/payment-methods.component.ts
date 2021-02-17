@@ -16,4 +16,8 @@ export class PaymentMethodsComponent implements OnInit {
     this.paymentMethods = this.paymentMethodsService.getAllPaymentMethods();
     console.log(this.paymentMethods);
   }
+
+  onDelete(index) {
+    this.paymentMethods.splice(index, 1);
+  }
 }

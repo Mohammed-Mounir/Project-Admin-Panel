@@ -4,7 +4,7 @@ import { Review } from '../_model/reviews';
 @Injectable({
   providedIn: 'root',
 })
-export class ReviewsService {
+export class ReviewsService { 
   reviews: Review[] = [
     {
       id: 1,
@@ -264,7 +264,7 @@ export class ReviewsService {
   ];
 
   getAllReviews(): Review[] {
-    return this.reviews.slice();
+    return this.reviews.slice(); 
   }
 
   getReviewsByProductId(id: string): Review[] {

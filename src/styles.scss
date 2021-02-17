@@ -20,6 +20,7 @@ a:focus {
 }
 
 #middle-content {
+  position: relative;
   width: 100%;
   min-height: 100vh;
   transition: all 0.3s;
@@ -28,6 +29,7 @@ a:focus {
 
 #main-content {
   padding: 20px;
+  margin-bottom: 50px;
   table {
     table-layout: fixed;
   }

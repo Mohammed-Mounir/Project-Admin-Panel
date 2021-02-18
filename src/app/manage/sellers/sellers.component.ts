@@ -22,4 +22,31 @@ export class SellersComponent implements OnInit {
     this.sellers.splice(i, 1);
   }
 
+  idSearch(searchquery) {
+     this.sellers = this.sellersService.getAllSellers();
+    console.log(searchquery);
+     this.sellers = this.sellersService.SearchById(searchquery);
+    
+  }
+  
+  nameSearch(searchquery) {
+    this.sellers = this.sellersService.getAllSellers();
+    console.log(searchquery);
+    this.sellers = this.sellersService.SearchByName(searchquery);
+  }
+
+  categorySearch(searchquery) {
+    this.sellers = this.sellersService.getAllSellers();
+    console.log(searchquery);
+    this.sellers = this.sellersService.SearchByCategory(searchquery);
+  }
+
+  emailSearch(searchquery) {
+    this.sellers = this.sellersService.getAllSellers();
+    console.log(searchquery);
+    this.sellers = this.sellersService.SearchByEmail(searchquery);
+  }
+
+
+
 }

@@ -19,16 +19,20 @@
         <tbody>
           <tr>
             <td scope="col">
-              <input type="text" />
+              <input placeholder="Search by Id" type="text" name="id" 
+               #InputId (input)='idSearch(InputId.value)' />
             </td>
             <td scope="col">
-              <input type="text" />
+              <input placeholder="Search by Name" type="text" name="name" 
+               #InputName (input)='nameSearch(InputName.value)'/>
             </td>
             <td scope="col">
-              <input type="text" />
+              <input placeholder="Search by Category" type="text" name="category"
+                #InputCategory (input)='categorySearch(InputCategory.value)'/>
             </td>
             <td scope="col">
-              <input type="text" />
+              <input placeholder="Search by Email" type="text" name="email" 
+               #InputEmail (input)='emailSearch(InputEmail.value)'/>
             </td>
           </tr>
           <tr *ngFor="let seller of sellers let i = index">

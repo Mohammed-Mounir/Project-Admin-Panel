@@ -20,6 +20,7 @@ import { SellersComponent } from './manage/sellers/sellers.component';
 import { ShipmentsComponent } from './manage/shipments/shipments.component';
 import { UsersComponent } from './manage/users/users.component';
 import { WarehouseComponent } from './manage/warehouse/warehouse.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { WarehouseComponent } from './manage/warehouse/warehouse.component';
     UsersComponent,
     WarehouseComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule ], 
   providers: [SideBarService],
   bootstrap: [AppComponent],
 })

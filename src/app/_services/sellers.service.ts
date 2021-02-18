@@ -353,4 +353,27 @@ export class SellersService {
     const index = this.sellers.findIndex((p) => p._id === id);
     this.sellers.splice(index, 1);
   }
+
+  SearchById(searchQuery: string) {
+    const sellerID = searchQuery.toLowerCase();
+    return this.sellers.filter(s => s.sellerId.toLowerCase().includes(sellerID));
+  }
+
+  SearchByName(searchQuery: string) {
+    const sellerNAME = searchQuery.toLowerCase();
+    return this.sellers.filter(s => s.sellerName.toLowerCase().includes(sellerNAME));
+    
+  }
+
+  SearchByCategory(searchQuery: string) {
+    const sellerCATEGORY = searchQuery.toLowerCase();
+    return this.sellers.filter(s => s.category.toLowerCase().includes(sellerCATEGORY));
+    
+  }
+
+  SearchByEmail(searchQuery: string) {
+    const sellerEMAIL = searchQuery.toLowerCase();
+    return this.sellers.filter(s => s.email.toLowerCase().includes(sellerEMAIL));
+    
+  }
 }

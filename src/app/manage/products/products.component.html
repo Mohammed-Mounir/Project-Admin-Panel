@@ -1,1 +1,115 @@
-<p>products works!</p>
+<div class="contianer-fluid">
+    <div class="row">
+      <div class="col-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+          <h2>Manage Products</h2> 
+          
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Product ID</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Sub Category</th>
+              <th scope="col">Product Type</th>
+              <!-- <th scope="col">Product Stock</th> -->
+              <th scope="col">Sales Name</th>
+<!--               <th scope="col">Product Rate</th> -->
+            </tr>
+          </thead>
+          <tbody>
+             <tr>
+               <td scope="col">
+                 <input class="form-control" placeholder="By Id" type="text" name="id" id="id" #InputId
+                   (input)='idSearch(InputId.value)' />
+               </td>
+               <td scope="col">
+                 <input class="form-control" placeholder="By Product Name" type="text" name="name" id="name" #InputName
+                   (input)='nameSearch(InputName.value)' />
+               </td>
+               <td scope='col'>
+                   <select (change)='categorySearch(InputCategory.value)' class="form-select" name="category" id="category" #InputCategory>
+                    <option disabled selected='selected' value="">Category</option>
+                    <option  *ngFor='let cat of categories' [value]="cat.name">{{cat.name}}</option>
+                   </select>
+               </td>
+               <td scope='col'>
+                <select (change)='subCategorySearch(InputSubCategory.value)' class="form-select" name="subCategory" id="subCategory" #InputSubCategory>
+                 <option disabled selected='selected' value="">Sub Category</option>
+                 <option  *ngFor='let sub of subCategories' [value]="sub">{{sub}}</option>
+                </select>
+            </td>
+              <td scope="col">
+                <input class="form-control" placeholder="By Type" type="text" name="type" id="type" #InputType
+                  (input)='typeSearch(InputType.value)' />
+              </td>
+              <!-- <td scope="col">
+                <input class="form-control" placeholder="By Stock" type="text" name="stock" id="stock" #InputStock
+                  (input)='stockSearch(InputStock.value)' />
+              </td> -->
+              <td scope="col">
+                <input class="form-control" placeholder="By Seller Name" type="text" name="seller" id="seller" #InputSeller
+                  (input)='sellerNameSearch(InputSeller.value)' />
+              </td>
+              <p style="font-weight: 800;">Total : {{products.length}}</p>
+             </tr>
+             <h3 style="width: 300px;" *ngIf='products.length === 0'>{{message}}</h3>
+            <tr *ngFor="let Product of products, let i = index">
+              <td>{{ Product._id  }}</td>
+              <td>{{ Product.productName }}</td>
+              <td>{{ Product.productCategory}}</td>
+              <td>{{ Product.productSubCategory }}</td>
+              <td>{{ Product.productType }}</td>
+              <!-- <td>{{ Product.productStock }}</td> -->
+              <td>{{ sellerName(Product.productSales) }}</td>
+              <!-- <td>{{ Product.productRate}}</td> -->
+              <td>
+                <i class="fas fa-eye  view" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"> </i>
+                <i class="fas fa-edit mx-2"></i>
+                <i class="fas fa-trash-alt  trash" (click)='delete(i)'></i>
+  
+  
+                <div class="modal fade" id="adv{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                  aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <ul id="modalList">
+                          <li>Product id : {{Product._id }}</li>
+                          <li>Product name : {{ Product.productName }}</li>
+                          <!-- <li>Advertisement title : {{Product.AdTitle }} </li>info -->
+                          <!--<li>Current Price : {{Product.ProductPrice.currentPrice }}{{Product.ProductPrice.currency }} </li>Price -->
+                          <li>Product Rate : {{Product.productRate}} </li>
+                          <li>Product Type : {{Product.productType}} </li>
+                          <li>Category : {{Product.productCategory}} </li>
+                          <li>Sub Category : {{Product.productSubCategory}} </li>
+                          <li>Product Keywords : {{Product.keywords}} </li>
+                          <li>WareHouse : {{Product.warehouseId}} </li>
+                          <li>Product Stock : {{Product.productStock}} </li>
+                          <li>Seller Name : {{sellerService.SearchById(Product.productSales)[0].sellerName}} </li>
+                          <!-- <li><img id="adImg" [src]="advertisement.img"> </li> -->
+                        </ul>
+  
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  

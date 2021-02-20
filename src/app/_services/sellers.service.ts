@@ -354,7 +354,7 @@ export class SellersService {
     this.sellers.splice(index, 1);
   }
 
-  SearchById(searchQuery: string) {
+  SearchById(searchQuery: string ='') {
     const sellerID = searchQuery.toLowerCase();
     return this.sellers.filter(s => s.sellerId.toLowerCase().includes(sellerID));
   }

@@ -92,7 +92,7 @@ export class ProductsComponent implements OnInit {
         this.products = this.productService.searchByCategory(category,this.allProducts);
         this.message = 'Data Not Found';
       }
-    this.subCategories =  this.categoryService.getAllSubCategoriesOfACategryByName(category);
+    this.subCategories =  this.categoryService.getAllSubCategoriesOfACategry(category);
   }
   subCategorySearch(sub){
     if(  this.productService.searchBySubCategory(sub,this.allProducts).length != 0)

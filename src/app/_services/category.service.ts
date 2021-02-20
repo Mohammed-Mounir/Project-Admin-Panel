@@ -362,12 +362,10 @@ export class CategoryService {
     return this.category.slice();
   }
 
-  getAllSubCategoriesOfACategryByName(categoryName: string): string[] {
-    return this.category.find((cat) =>cat.name == categoryName).sub;
-  }
-
-  getAllSubCategoriesOfACategryById(categoryId: string) {
-    return this.category.find((cat) =>cat._id === categoryId).sub;    
+  getAllSubCategoriesOfACategry(categoryName: string): string[] {
+    return this.category.find((cat) => {
+      cat.name == categoryName;
+    }).sub;
   }
 
   addSubCategory(categoryName: string, SubCategoryName: string): void {

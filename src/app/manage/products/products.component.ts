@@ -13,7 +13,7 @@ export class ProductsComponent implements OnInit {
   products:Product[]=[];
   allProducts:Product[]=[];
   message = 'Loading ...';
-  input =['id' ,'name' ,'category' ,'subCategory' ,'type' ,'stock' ,'seller' ,]
+  input =['id' ,'name' ,'category' ,'subCategory' ,'type' ,'seller' ]
   categories;
   allCategories;
   allSubCat;

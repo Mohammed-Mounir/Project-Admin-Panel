@@ -10,6 +10,7 @@ import { PaymentMethodsService } from 'src/app/_services/payment-methods.service
 })
 export class PaymentMethodsComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
+  paymentMethodsCopy: PaymentMethod[] = [];
   editMode: boolean = false;
   addPaymentMethod: PaymentMethod = {
     _id: '',
@@ -28,6 +29,8 @@ export class PaymentMethodsComponent implements OnInit {
     this.paymentMethodsService.getAllPaymentMethods().subscribe({
       next: (responseData: any) => {
         this.paymentMethods = responseData.paymentMethods;
+        this.paymentMethodsCopy = responseData.paymentMethods;
+        this.currentPage = 0;
         this.lastPage = this.paymentMethods.length / this.pageSize;
         this.calculateNumOfPages();
       },
@@ -100,6 +103,12 @@ export class PaymentMethodsComponent implements OnInit {
     this.editMode = false;
   }
 
+  getSlicedArrOfPaymentMethods() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    return this.paymentMethods.slice(start, end);
+  }
+
   calculateNumOfPages() {
     this.numOfPages = [];
     for (
@@ -109,5 +118,24 @@ export class PaymentMethodsComponent implements OnInit {
     ) {
       this.numOfPages.push(index + 1);
     }
+  }
+
+  onSearch(searchInput) {
+    this.currentPage = 0;
+    this.paymentMethods = this.paymentMethodsCopy.slice();
+
+    if (searchInput.name === 'paymentId') {
+      this.paymentMethods = this.paymentMethods.filter((p) =>
+        p._id.toLowerCase().includes(searchInput.value.toLowerCase())
+      );
+    } else if (searchInput.name === 'paymentType') {
+      this.paymentMethods = this.paymentMethods.filter((p) =>
+        p.paymentMethodType
+          .toLowerCase()
+          .includes(searchInput.value.toLowerCase())
+      );
+    }
+
+    this.calculateNumOfPages();
   }
 }

@@ -85,16 +85,31 @@
         <tbody>
           <tr>
             <td>
-              <input type="text" />
+              <input
+                type="text"
+                name="paymentId"
+                (input)="onSearch(idInput)"
+                #idInput
+              />
             </td>
             <td>
-              <input type="text" />
+              <input
+                type="text"
+                name="paymentType"
+                (input)="onSearch(typeInput)"
+                #typeInput
+              />
             </td>
             <td>
               <p class="fw-bold">Display/Edit/Delete</p>
             </td>
           </tr>
-          <tr *ngFor="let paymentMethod of paymentMethods; let i = index">
+          <tr
+            *ngFor="
+              let paymentMethod of getSlicedArrOfPaymentMethods();
+              let i = index
+            "
+          >
             <td>{{ paymentMethod._id }}</td>
             <td>{{ paymentMethod.paymentMethodType }}</td>
             <td>
@@ -167,7 +182,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-12">
+    <div class="col-12" *ngIf="paymentMethods.length >= 9">
       <nav aria-label="...">
         <ul class="pagination justify-content-center">
           <li

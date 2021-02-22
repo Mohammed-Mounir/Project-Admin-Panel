@@ -1,6 +1,5 @@
 export interface PaymentMethod {
-  id?: number;
-  paymentMethod?: string;
-  cardCompany?: string;
+  _id?: string;
+  paymentMethodType?: string;
   img?: string;
 }

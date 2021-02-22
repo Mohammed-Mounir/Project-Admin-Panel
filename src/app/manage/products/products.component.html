@@ -11,8 +11,8 @@
             <tr>
               <th scope="col">Product ID</th>
               <th scope="col">Product Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Sub Category</th>
+              <!-- <th scope="col">Category</th>
+              <th scope="col">Sub Category</th> -->
               <th scope="col">Product Type</th>
               <!-- <th scope="col">Product Stock</th> -->
               <th scope="col">Sales Name</th>
@@ -29,7 +29,7 @@
                  <input class="form-control" placeholder="By Product Name" type="text" name="name" id="name" #InputName
                    (input)='nameSearch(InputName.value)' />
                </td>
-               <td scope='col'>
+               <!-- <td scope='col'>
                    <select (change)='categorySearch(InputCategory.value)' class="form-select" name="category" id="category" #InputCategory>
                     <option disabled selected='selected' value="">Category</option>
                     <option  *ngFor='let cat of categories' [value]="cat.name">{{cat.name}}</option>
@@ -40,7 +40,7 @@
                  <option disabled selected='selected' value="">Sub Category</option>
                  <option  *ngFor='let sub of subCategories' [value]="sub">{{sub}}</option>
                 </select>
-            </td>
+            </td> -->
               <td scope="col">
                 <input class="form-control" placeholder="By Type" type="text" name="type" id="type" #InputType
                   (input)='typeSearch(InputType.value)' />
@@ -53,24 +53,25 @@
                 <input class="form-control" placeholder="By Seller Name" type="text" name="seller" id="seller" #InputSeller
                   (input)='sellerNameSearch(InputSeller.value)' />
               </td>
-              <p style="font-weight: 800;">Total : {{products.length}}</p>
+              <p style="font-weight: 800;text-align: center;">Total : {{products.length}}</p>
              </tr>
              <h3 style="width: 300px;" *ngIf='products.length === 0'>{{message}}</h3>
             <tr *ngFor="let Product of products, let i = index">
               <td>{{ Product._id  }}</td>
               <td>{{ Product.productName }}</td>
-              <td>{{ Product.productCategory}}</td>
-              <td>{{ Product.productSubCategory }}</td>
+              <!-- <td>{{ Product.productCategory}}</td>
+              <td>{{ Product.productSubCategory }}</td> -->
               <td>{{ Product.productType }}</td>
               <!-- <td>{{ Product.productStock }}</td> -->
               <td>{{ sellerName(Product.productSales) }}</td>
               <!-- <td>{{ Product.productRate}}</td> -->
               <td>
-                <i class="fas fa-eye  view" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"> </i>
-                <i class="fas fa-edit mx-2"></i>
-                <i class="fas fa-trash-alt  trash" (click)='delete(i)'></i>
-  
-  
+                <div class="text-center">
+                  <i class="fas fa-eye  view" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"> </i>
+                  <i class="fas fa-edit mx-2"></i>
+                  <i class="fas fa-trash-alt  trash" (click)='delete(Product._id)'></i>
+                </div>
+              
                 <div class="modal fade" id="adv{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog">
@@ -83,17 +84,25 @@
                         <ul id="modalList">
                           <li>Product id : {{Product._id }}</li>
                           <li>Product name : {{ Product.productName }}</li>
-                          <!-- <li>Advertisement title : {{Product.AdTitle }} </li>info -->
-                          <!--<li>Current Price : {{Product.ProductPrice.currentPrice }}{{Product.ProductPrice.currency }} </li>Price -->
+                          <li>Product Info : <ol style="list-style-type: square;">
+                            <li *ngFor='let info of productInfoSpread(Product.productInfo[0])'>{{info}} : {{Product.productInfo[0][info]}}</li>
+                          </ol>
+                          </li>
+                          <li>Product Price : <ol style="list-style-type: square;">
+                            <li> Price : {{Product.productPrice.currentPrice}} {{Product.productPrice.currency}}</li>
+                            <li *ngIf='Product.productPrice.discount > 0'> Discount : {{Product.productPrice.discount}}</li>
+                            <li *ngIf='Product.productPrice.discount > 0'> Final Price : {{Product.productPrice.finalPrice}} {{Product.productPrice.currency}}</li>
+                          </ol>
+                          </li>
                           <li>Product Rate : {{Product.productRate}} </li>
                           <li>Product Type : {{Product.productType}} </li>
                           <li>Category : {{Product.productCategory}} </li>
                           <li>Sub Category : {{Product.productSubCategory}} </li>
                           <li>Product Keywords : {{Product.keywords}} </li>
-                          <li>WareHouse : {{Product.warehouseId}} </li>
+                          <li>WareHouse : {{warehouseName(Product.warehouseId)}} </li>
                           <li>Product Stock : {{Product.productStock}} </li>
-                          <!-- <li>Seller Name : {{sellerService.SearchById(Product.productSales)[0].sellerName}} </li> -->
-                          <!-- <li><img id="adImg" [src]="advertisement.img"> </li> -->
+                          <li>Seller Name : {{sellerName(Product.productSales)}} </li>
+                          <img id="adImg" [src]="Product.productImages"> 
                         </ul>
   
                       </div>

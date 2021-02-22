@@ -3,6 +3,7 @@ import { Product } from 'src/app/_model/product';
 import { CategoryService } from 'src/app/_services/category.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { SellersService } from 'src/app/_services/sellers.service';
+import { WarehouseService } from 'src/app/_services/warehouse.service';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,7 @@ export class ProductsComponent implements OnInit {
   products:Product[]=[];
   allProducts:Product[]=[];
   message = 'Loading ...';
-  input =['id' ,'name' ,'category' ,'subCategory' ,'type' ,'seller' ]
+  input =['id' ,'name' ,'type' ,'seller' ]
   categories;
   allCategories;
   allSubCat;
@@ -21,7 +22,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService : ProductService,
     private sellerService : SellersService,
-    private categoryService : CategoryService
+    private categoryService : CategoryService,
+    private warehouseService : WarehouseService
     ) { }
 
   ngOnInit(): void {
@@ -43,17 +45,42 @@ export class ProductsComponent implements OnInit {
         return this.sellerService.SearchById(id)[0].sellerName;
       }
     }
-    return 'undefined'
-     
+    return 'undefined'  
   }
-  delete(i) {
-
-    console.log(this.products[i]._id);
-    
-    this.products.splice(i, 1);
-
-    // this.advertisementsService.deleteAd(this.advertisements[i]._id);
-
+  warehouseName(id){
+    if(id){
+      if(this.warehouseService.getWarehouseById(id)[0])
+      {
+        return this.warehouseService.getWarehouseById(id)[0].name;
+      }
+    }
+    return 'undefined'  
+  }
+  productInfoSpread(infos)
+  {
+    let keys =[];
+    for(let info in infos)
+    {
+      keys.push(info);
+    }
+    return keys;
+  }
+  delete(id) {
+    this.productService.deleteProduct(id).subscribe(
+      ()=>{
+        this.productService.getAllProducts().subscribe(
+          (res:any)=>{
+            this.products = res;
+            this.allProducts = res
+            
+          },
+          (err)=>{console.error(err)},
+          ()=>{}
+        );
+      },
+      (err)=>{console.error(err)},
+      ()=>{}
+    );
 
   }
 
@@ -149,44 +176,4 @@ export class ProductsComponent implements OnInit {
         this.message = 'Data Not Found';
       }
   }
-  titleSearch(searchquery) {
-    // this.advertisements = this.advertisementsService.getAllAds();
-    // console.log(searchquery);
-    // this.advertisements = this.advertisementsService.SearchByTitle(searchquery);
-    /* this.productService.getAllAds().subscribe(
-      (res) => {
-
-        this.products = res;
-        this.products = this.productService.SearchByTitle(res, searchquery);
-        console.log('onSearchByTitle', this.products);
-
-      },
-      (err) => {
-        console.log(err);
-
-      },
-      () => { },
-    ); */
-  }
-
-  /* dateSearch(searchquery) {
-    // this.advertisements = this.advertisementsService.getAllAds();
-    // console.log(searchquery);
-    // this.advertisements = this.advertisementsService.SearchByDate(searchquery);
-
-    this.productService.getAllProducts().subscribe(
-      (res:any) => {
-
-        this.products = res;
-        this.products = this.productService.SearchByDate(res, searchquery);
-        console.log('onSearchByDate', this.products);
-
-      },
-      (err) => {
-        console.log(err);
-
-      },
-      () => { },
-    );
-  } */
 }

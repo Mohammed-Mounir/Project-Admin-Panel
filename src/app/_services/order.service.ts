@@ -689,7 +689,7 @@ export class OrderService {
     orderStatus: "refused",
     customerId: "jj06_4009_5484"
   }]; */
-  baseUrl = 'http://localhost:3000/';
+  baseUrl = 'https://iti-amzon-backend.herokuapp.com/';
   constructor(private httpClinet : HttpClient) { }
   getAllOrders(){
     return this.httpClinet.get(this.baseUrl+'api/orders');

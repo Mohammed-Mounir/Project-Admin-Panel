@@ -9,6 +9,7 @@ import { OrderService } from 'src/app/_services/order.service';
 })
 export class OrdersComponent implements OnInit {
   orders:Order[]=[];
+  allOrders:Order[]=[];
   constructor(
     private orderService:OrderService,
   ) { }
@@ -17,11 +18,30 @@ export class OrdersComponent implements OnInit {
     this.orderService.getAllOrders().subscribe(
       (res:any)=>{
         this.orders = res ;
+        this.allOrders = res
         console.log(res);
       },
       (err)=>{console.error(err)},
       ()=>{}
     )
   }
-
+  delete(id) {
+    this.orderService.deleteOrder(id).subscribe(
+      ()=>{console.log(id);
+        this.orderService.getAllOrders().subscribe(
+          (res:any)=>{
+            this.orders = res;
+            this.allOrders = res;
+            console.log(res);
+          },
+          (err)=>{console.error(err)},
+          ()=>{}
+        );
+      },
+      (err)=>{console.error(err)},
+      ()=>{}
+    );
+      
+      
+  }
 }

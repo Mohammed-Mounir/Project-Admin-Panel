@@ -1494,7 +1494,7 @@ export class ProductService {
     this.productAdded.emit(this.cartProducts);
   }
 
-  searchProductsByKeywords(...params) {
+  /* searchProductsByKeywords(...params) {
     var result = this.products.filter((p) => {
       return p.keywords.includes(params[0]);
     });
@@ -1505,12 +1505,12 @@ export class ProductService {
     }
 
     return result;
-  }
+  } */
 
   searchById(id,products){
     return products.filter(p=> p._id.includes(id));
   }
-  searchByCategory(category,products){
+  /* searchByCategory(category,products){
     return products.filter(p=> {
       if(p.productCategory)
       {
@@ -1521,8 +1521,8 @@ export class ProductService {
         return 0
       }
     });
-  }
-  searchBySubCategory(sub,products){
+  } */
+  /* searchBySubCategory(sub,products){
     return products.filter(p=> {
       if(p.productSubCategory)
       {
@@ -1533,7 +1533,7 @@ export class ProductService {
         return 0
       }
     });
-  }
+  } */
   searchByType(type,products){
     return products.filter(p=> {
       if(p.productType)
@@ -1546,7 +1546,7 @@ export class ProductService {
       }
     });
   }
-  searchByStock(stock,products){
+  /* searchByStock(stock,products){
     return products.filter(p=> {
       if(p.productStock)
       {
@@ -1557,7 +1557,7 @@ export class ProductService {
         return 0
       }
     });
-  }
+  } */
   searchByName(name,products){
     return products.filter(p=> {
       if(p.productName)

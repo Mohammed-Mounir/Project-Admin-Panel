@@ -723,4 +723,16 @@ export class OrderService {
         console.log(responseOrder);
       });
   }
+  searchById(id,orders){
+    return orders.filter(o=> o._id.includes(id));
+  }
+  searchByDate(date,orders){
+    return orders.filter(o=> o.orderDate.toLowerCase().includes(date.toLowerCase()));
+  }
+  searchByStatus(status,orders){
+    return orders.filter(o=> o.orderStatus.toLowerCase().includes(status.toLowerCase()));
+  }
+  searchByCustomerName(name,orders){
+    return orders.filter(o=> o.customerId.toLowerCase().includes(name.toLowerCase()));
+  }
 }

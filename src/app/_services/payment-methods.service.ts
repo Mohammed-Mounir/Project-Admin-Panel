@@ -9,7 +9,7 @@ import { PaymentMethod } from '../_model/payment-methods';
 export class PaymentMethodsService {
   constructor(private http: HttpClient) {}
   paymentMethods: PaymentMethod[] = [];
-  baseUrl: string = 'http://localhost:3000/api/payment-methods';
+  baseUrl: string = 'https://iti-amzon-backend.herokuapp.com/api/payment-methods';
 
   getAllPaymentMethods(): Observable<{
     message: string;

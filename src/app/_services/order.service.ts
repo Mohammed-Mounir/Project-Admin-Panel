@@ -703,9 +703,36 @@ export class OrderService {
   deleteOrder(id:string){
     return this.httpClinet.delete(this.baseUrl+'api/order/'+id);
   }
-  addOrder(order:Order){
-    console.log(order);
+  addOrder(order) {
+    const newOrder: Order = {
+      _id: order.orderData.orderID,
+      orderItems: order.orderDetails.purchase_units[0].items,
+      orderPrice: order.orderDetails.purchase_units[0].amount.value,
+      orderDate: order.orderDetails.create_time,
+      shippingAddress: order.userAddress,
+      orderStatus: 'Pending',
+      customerId: '5ff8c51fa4c6cf417005fd48',
+    };
 
-    return this.httpClinet.post(this.baseUrl+'api/order/add',order);
+    this.httpClinet
+      .post<{ message: string; orderID: string }>(
+        this.baseUrl+'api/order/add',
+        newOrder
+      )
+      .subscribe((responseOrder) => {
+        console.log(responseOrder);
+      });
+  }
+  searchById(id,orders){
+    return orders.filter(o=> o._id.includes(id));
+  }
+  searchByDate(date,orders){
+    return orders.filter(o=> o.orderDate.toLowerCase().includes(date.toLowerCase()));
+  }
+  searchByStatus(status,orders){
+    return orders.filter(o=> o.orderStatus.toLowerCase().includes(status.toLowerCase()));
+  }
+  searchByCustomerName(name,orders){
+    return orders.filter(o=> o.customerId.toLowerCase().includes(name.toLowerCase()));
   }
 }

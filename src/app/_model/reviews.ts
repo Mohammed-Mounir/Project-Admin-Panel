@@ -1,5 +1,5 @@
 export interface Review {
-  id?: number;
+  _id?: string;
   reviewerID?: string;
   reviewerName?: string;
   reviewTime?: string;

@@ -14,7 +14,7 @@ export class ProductsComponent implements OnInit {
   products:Product[]=[];
   allProducts:Product[]=[];
   message = 'Loading ...';
-  input =['id' ,'name' ,'type' ,'seller' ]
+  input =['id' ,'name' ,'type' ,'seller' ];
   categories;
   allCategories;
   allSubCat;
@@ -107,7 +107,7 @@ export class ProductsComponent implements OnInit {
         this.message = 'Data Not Found';
       }
   }
-  categorySearch(category)
+  /* categorySearch(category)
   {
     this.clearSearch('category');
     if(  this.productService.searchByCategory(category,this.allProducts).length != 0)
@@ -131,7 +131,7 @@ export class ProductsComponent implements OnInit {
       this.products = this.productService.searchBySubCategory(sub,this.allProducts);
       this.message = 'Data Not Found';
     }
-  }
+  } */
   typeSearch(type){
     if(  this.productService.searchByType(type,this.allProducts).length != 0)
     {
@@ -143,7 +143,7 @@ export class ProductsComponent implements OnInit {
       this.message = 'Data Not Found';
     }
   }
-  stockSearch(stock){
+  /* stockSearch(stock){
     this.clearSearch('stock');
     if(  this.productService.searchByStock(stock,this.allProducts).length != 0)
     {
@@ -154,7 +154,7 @@ export class ProductsComponent implements OnInit {
       this.products = this.productService.searchByStock(stock,this.allProducts);
       this.message = 'Data Not Found';
     }
-  }
+  } */
   nameSearch(name) {
     this.clearSearch('name');
     if(  this.productService.searchByName(name,this.allProducts).length != 0)

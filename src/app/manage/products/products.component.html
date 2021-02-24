@@ -83,26 +83,27 @@
                       <div class="modal-body">
                         <ul id="modalList">
                           <li>Product id : {{Product._id }}</li>
-                          <li>Product name : {{ Product.productName }}</li>
+                          <li *ngIf='Product.productName'>Product name : {{ Product.productName }}</li>
                           <li>Product Info : <ol style="list-style-type: square;">
+                            <li *ngIf='Product.productInfo[0].color'> Colors : {{spreadArray(color(Product.productInfo[0].color))}}</li>
                             <li *ngFor='let info of productInfoSpread(Product.productInfo[0])'>{{info}} : {{Product.productInfo[0][info]}}</li>
                           </ol>
                           </li>
                           <li>Product Price : <ol style="list-style-type: square;">
                             <li> Price : {{Product.productPrice.currentPrice}} {{Product.productPrice.currency}}</li>
-                            <li *ngIf='Product.productPrice.discount > 0'> Discount : {{Product.productPrice.discount}}</li>
-                            <li *ngIf='Product.productPrice.discount > 0'> Final Price : {{Product.productPrice.finalPrice}} {{Product.productPrice.currency}}</li>
+                            <li *ngIf='Product.productPrice.onSale === "0"'> Discount : {{Product.productPrice.discount}}</li>
+                            <li *ngIf='Product.productPrice.onSale === "0"'> Final Price : {{Product.productPrice.finalPrice}} {{Product.productPrice.currency}}</li>
                           </ol>
                           </li>
-                          <li>Product Rate : {{Product.productRate}} </li>
-                          <li>Product Type : {{Product.productType}} </li>
-                          <li>Category : {{Product.productCategory}} </li>
-                          <li>Sub Category : {{Product.productSubCategory}} </li>
-                          <li>Product Keywords : {{Product.keywords}} </li>
+                          <li *ngIf='Product.productRate'>Product Rate : {{Product.productRate}} </li>
+                          <li *ngIf='Product.productType'>Product Type : {{Product.productType}} </li>
+                          <li *ngIf='Product.productCategory'>Category : {{Product.productCategory}} </li>
+                          <li *ngIf='Product.productSubCategory'>Sub Category : {{Product.productSubCategory}} </li>
+                          <li *ngIf='Product.keywords'>Product Keywords : {{spreadArray(Product.keywords)}} </li>
                           <li>WareHouse : {{warehouseName(Product.warehouseId)}} </li>
-                          <li>Product Stock : {{Product.productStock}} </li>
-                          <li>Seller Name : {{sellerName(Product.productSales)}} </li>
-                          <img id="adImg" [src]="Product.productImages"> 
+                          <li *ngIf='Product.productStock'>Product Stock : {{Product.productStock}} </li>
+                          <li >Seller Name : {{sellerName(Product.productSales)}} </li>
+                          <img *ngIf='Product.productImages' id="adImg" [src]="Product.productImages"> 
                         </ul>
   
                       </div>

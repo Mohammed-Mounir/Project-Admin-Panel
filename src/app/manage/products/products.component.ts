@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/_model/product';
 import { CategoryService } from 'src/app/_services/category.service';
+import { ColorService } from 'src/app/_services/color.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { SellersService } from 'src/app/_services/sellers.service';
 import { WarehouseService } from 'src/app/_services/warehouse.service';
@@ -19,11 +20,13 @@ export class ProductsComponent implements OnInit {
   allCategories;
   allSubCat;
   subCategories;
+  colors;
   constructor(
     private productService : ProductService,
     private sellerService : SellersService,
     private categoryService : CategoryService,
-    private warehouseService : WarehouseService
+    private warehouseService : WarehouseService,
+    private colorService : ColorService
     ) { }
 
   ngOnInit(): void {
@@ -37,6 +40,7 @@ export class ProductsComponent implements OnInit {
     );
     this.categories = this.categoryService.getAllCategories();
     this.allCategories = this.categoryService.getAllCategories();
+    this.colors = this.colorService.allColors();
   }
   sellerName(id){
     if(id){
@@ -56,12 +60,35 @@ export class ProductsComponent implements OnInit {
     }
     return 'undefined'  
   }
+  color(colors)
+  {
+     let re=[];
+    for (let i = 0; i < this.colors.length; i++) {
+      if(colors[i])
+      {
+        re.push(this.colors[i].name)
+      }
+    }
+   return re;
+  }
+  spreadArray(arr)
+  {
+    let re ='';
+    for(let key of arr)
+    {
+      re+=`${key} , `
+    }
+    return re.slice(0,re.length-2)
+  }
   productInfoSpread(infos)
   {
     let keys =[];
     for(let info in infos)
     {
-      keys.push(info);
+      if(info != 'color')
+      {
+        keys.push(info);
+      }
     }
     return keys;
   }

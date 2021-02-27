@@ -44,9 +44,9 @@ export class ProductsComponent implements OnInit {
   }
   sellerName(id){
     if(id){
-      if(this.sellerService.SearchById(id)[0])
+      if(this.sellerService.getSellerById(id)[0])
       {
-        return this.sellerService.SearchById(id)[0].sellerName;
+        return this.sellerService.getSellerById(id)[0].sellerName;
       }
     }
     return 'undefined'  

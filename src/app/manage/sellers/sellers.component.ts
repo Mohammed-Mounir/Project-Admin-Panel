@@ -13,39 +13,62 @@ export class SellersComponent implements OnInit {
   constructor(private sellersService: SellersService) { }
 
   ngOnInit(): void {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(this.sellers); 
-
+   
+    this.sellersService.getAllSellers().subscribe(
+      (res:any)=>{
+        this.sellers = res;
+        console.log(this.sellers)
+      },
+      (err)=>{console.error(err)},
+      ()=>{}
+    );
   }
 
-  delete(i) {
-    this.sellers.splice(i, 1);
-  }
+  // delete(i) {
+  //   this.sellers.splice(i, 1);
+  // }
 
-  idSearch(searchquery) {
-     this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-     this.sellers = this.sellersService.SearchById(searchquery);
+  idSearch(searchquery):any {
+     
+    
+    if( this.sellersService.getSellerById(searchquery,this.allProducts).length != 0)
+    {
+      this.sellers = this.sellersService.getSellerById(id,this.allProducts);
+    }
+    else
+    {
+      this.products = this.productService.searchById(id,this.allProducts);
+      this.message = 'Data Not Found';
+    }
+
+    // console.log(searchquery);
+    //  this.sellersService.getSellerById(searchquery).subscribe(
+    //   (res:any)=>{
+    //     this.sellers = res;
+    //     console.log(this.sellers.email)
+    //   },
+    //   (err)=>{console.error(err)},
+    //   ()=>{}
+    //  );
     
   }
   
-  nameSearch(searchquery) {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-    this.sellers = this.sellersService.SearchByName(searchquery);
-  }
+  // nameSearch(searchquery) {
+    
+  //   this.sellers= this.sellersService.getSellerByName(searchquery);
+  // }
 
-  categorySearch(searchquery) {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-    this.sellers = this.sellersService.SearchByCategory(searchquery);
-  }
+  // categorySearch(searchquery) {
+  //   this.sellers = this.sellersService.getAllSellers();
+  //   console.log(searchquery);
+  //   this.sellers = this.sellersService.SearchByCategory(searchquery);
+  // }
 
-  emailSearch(searchquery) {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-    this.sellers = this.sellersService.SearchByEmail(searchquery);
-  }
+  // emailSearch(searchquery) {
+  //   this.sellers = this.sellersService.getAllSellers();
+  //   console.log(searchquery);
+  //   this.sellers = this.sellersService.SearchByEmail(searchquery);
+  // }
 
 
 

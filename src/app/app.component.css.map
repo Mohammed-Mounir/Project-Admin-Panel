@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"app.component.css"}
+{"version":3,"sources":["app.component.scss"],"names":[],"mappings":"AAAA;EACE,eAAe;EACf,gBAAgB;AAClB","file":"app.component.css","sourcesContent":["* {\n  font-size: 12px;\n  font-weight: 100;\n}\n\n/*# sourceMappingURL=file:///c:/Users/USER/Desktop/7agaty/iti/Angular/Admin%20Panel/Project-Admin-Panel/src/app/app.component.css.map */"]}

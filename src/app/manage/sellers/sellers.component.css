@@ -1,2 +1,18 @@
+.trash:hover {
+  color: red;
+  cursor: pointer;
+}
 
+.view:hover {
+  color: green;
+  cursor: pointer;
+}
+
+#modalList {
+  list-style-type: none;
+}
+
+#adImg {
+  width: 80%;
+}
 /*# sourceMappingURL=sellers.component.css.map */

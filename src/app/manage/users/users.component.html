@@ -1,1 +1,111 @@
-<p>users works!</p>
+<div class="contianer-fluid">
+  <div class="row">
+    <div class="col-12"></div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Manage Users</th>
+          </tr>
+          <tr>
+            <th scope="col">User ID</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Date of Register</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="col">
+              <input placeholder="Search by Id" type="text" name="id" #InputId (input)='idSearch(InputId.value)' />
+            </td>
+            <td scope="col">
+              <input placeholder="Search by Email" type="text" name="name" #InputEmail
+                (input)='emailSearch(InputEmail.value)' />
+            </td>
+            <td scope="col">
+              <input placeholder="Search by Address" type="text" name="address" #InputName
+                (input)='nameSearch(InputName.value)' />
+            </td>
+            <td scope="col">
+              <input placeholder="Search by Date" type="text" name="date" #InputDate
+                (input)='dateSearch(InputDate.value)' />
+            </td>
+            <p style="font-weight: 800;">Total : {{users.length}}</p>
+          </tr>
+          <tr *ngFor="let user of getSlicedArrayOfUsers() let i = index">
+            <td>{{ user._id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.dateOfRegister }}</td>
+            <td>
+              <i class="fas fa-eye  view" data-bs-toggle="modal" [attr.data-bs-target]="'#user'+i"></i>
+              <i class="fas fa-edit mx-2"></i>
+              <i class="fas fa-trash-alt  trash" (click)='delete(i)'></i>
+              <div class="modal fade" id="user{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Users Details</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul id="modalList">
+                        <li>User id : {{user._id }}</li>
+                        <li>User name : {{ user.userName }}</li>
+                        <li>User Email : {{user.email }} </li>
+                        <!-- <li>Address : city = {{user.address[0].city}} , <br> 
+                          latitude = {{user.address[0].geoMap.latitude }} , <br>
+                          longitude = {{user.address[0].geoMap.longitude }} </li> -->
+                        <li>Age : {{user.age}} </li>
+                        <li>Phone : {{user.phone}} </li>
+                        <li>Date of Register : {{user.dateOfRegister}} </li>
+                      </ul>
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-7"></div>
+      <div class="col-5">
+         <nav aria-label="...">
+           <ul class="pagination justify-content-center">
+
+             <li class="page-link" (click)="currentPage===0?currentPage:currentPage=currentPage-1"
+               style="cursor: pointer;">
+               <i class="fas fa-long-arrow-alt-left"></i>
+             </li>
+
+             <li *ngFor="let page of numOfPages; let i = index" class="page-link" (click)="currentPage = i"
+               [ngClass]="(i === currentPage)? 'active' : '' " style="cursor: pointer;">
+               {{ page }}
+               
+             </li>
+
+             <li class="page-link " (click)="currentPage>=lastPage-1?currentPage:currentPage=currentPage+1"
+               style="cursor: pointer;">
+               <i class="fas fa-long-arrow-alt-right"></i>
+             </li>
+
+           </ul>
+
+         </nav>
+      </div>
+    </div>
+  </div>
+</div>

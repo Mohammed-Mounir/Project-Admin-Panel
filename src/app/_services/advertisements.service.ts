@@ -189,11 +189,11 @@ export class AdvertisementsService {
         };
         // this.advertisements.push(newAd);
         // console.log(this.advertisements);
-        this.httpClient.post(`${this.baseUrl}api/advertisement`, newAd);
+        return  this.httpClient.post(`${this.baseUrl}api/advertisement`, newAd);
 
     }
 
-    updateAd(advertisement: Advertisement): void {
+    updateAd(advertisement: Advertisement){
         // const index = this.advertisements.findIndex((p) => p._id === advertisement._id);
         // this.advertisements[index] = {
         //     _id: advertisement._id,
@@ -215,7 +215,7 @@ export class AdvertisementsService {
 
         };
 
-        this.httpClient.post(`${this.baseUrl}api/advertisement`, updatedAd);
+        return  this.httpClient.post(`${this.baseUrl}api/advertisement`, updatedAd);
     }
 
     deleteAd(id:string) {
@@ -225,7 +225,7 @@ export class AdvertisementsService {
         const idToBeDeleted = id;
        
 
-        this.httpClient.delete(`${this.baseUrl}api/advertisement/${idToBeDeleted}`);
+      return  this.httpClient.delete(`${this.baseUrl}api/advertisement/${idToBeDeleted}`); 
     }
 
 
@@ -257,6 +257,6 @@ export class AdvertisementsService {
         return this.advertisements.filter(a => a.date.publishedDate.toLowerCase().includes(advDate));
 
     }
-
+ 
 
 }

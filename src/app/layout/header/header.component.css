@@ -19,7 +19,8 @@ span {
   display: inline-block;
 }
 
-#sidebarCollapse:hover {
-  color: #f3a847;
+i:hover,
+a:hover {
+  color: #ff9900;
 }
 /*# sourceMappingURL=header.component.css.map */

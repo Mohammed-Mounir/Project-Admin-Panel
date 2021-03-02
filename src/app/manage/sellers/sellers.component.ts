@@ -13,7 +13,7 @@ export class SellersComponent implements OnInit {
   constructor(private sellersService: SellersService) { }
 
   ngOnInit(): void {
-    this.sellers = this.sellersService.getAllSellers();
+    this.sellers = this.sellersService.getAllSellers(); 
     console.log(this.sellers); 
 
   }

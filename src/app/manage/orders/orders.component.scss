@@ -7,7 +7,14 @@
     color: green;
     cursor: pointer;
 }
-
+.complete{
+  color: green;
+  cursor: pointer;
+}
+.cancle{
+  color: red;
+  cursor: pointer;
+}
 #modalList{
     list-style-type: none; 
 }

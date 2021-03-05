@@ -136,4 +136,30 @@ export class OrdersComponent implements OnInit {
         this.message = 'Data Not Found';
       }
   }
+  complete(id){
+    let res =confirm('Are You Sure to Assign This Order as Completed ?');
+    if(res)
+    {
+      let order = this.orders.find((order)=>order._id=id);
+      order.orderStatus='Completed';
+      this.orderService.updateOrder(order).subscribe(
+        (res)=>{console.log(res)},
+        (err)=>{console.error(err)},
+        ()=>{},
+      )
+    }
+  }
+  cancel(id){
+    let res =confirm('Are You Sure to Cancel This Order ?');
+    if(res)
+    {
+      let order = this.orders.find((order)=>order._id=id);
+      order.orderStatus='Cancelled';
+      this.orderService.updateOrder(order).subscribe(
+        (res)=>{console.log(res)},
+        (err)=>{console.error(err)},
+        ()=>{},
+      )
+    }
+  }
 }

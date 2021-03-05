@@ -11,7 +11,11 @@ export class OrdersComponent implements OnInit {
   orders:Order[]=[];
   allOrders:Order[]=[];
   message = 'Loading ...';
-  input =['id' ,'date' ,'status' ,'customer' ]
+  input =['id' ,'date' ,'status' ,'customer' ];
+  numOfPages: number[] = [];
+  pageSize = 30;
+  currentPage = 0;
+  lastPage = 0;
   constructor(
     private orderService:OrderService,
   ) { }
@@ -20,11 +24,27 @@ export class OrdersComponent implements OnInit {
     this.orderService.getAllOrders().subscribe(
       (res:any)=>{
         this.orders = res ;
-        this.allOrders = res
+        this.allOrders = res;
+        this.lastPage = this.orders.length / this.pageSize;
+        this.calculateNumOfPages();
       },
       (err)=>{console.error(err)},
       ()=>{}
     )
+  }
+  calculateNumOfPages() {
+    this.numOfPages = [];
+    for (let index = 0; index < this.orders.length / this.pageSize; index++) {
+      this.numOfPages.push(index + 1);
+    }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
+    }
+  }
+  getSlicedArrayOfProducts() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    return this.orders.slice(start, end);
   }
   setUrl(lat,lng)
   {
@@ -65,10 +85,12 @@ export class OrdersComponent implements OnInit {
     if( this.orderService.searchById(id,this.allOrders).length != 0)
       {
         this.orders = this.orderService.searchById(id,this.allOrders);
+        this.calculateNumOfPages();
       }
       else
       {
         this.orders = this.orderService.searchById(id,this.allOrders);
+        this.calculateNumOfPages();
         this.message = 'Data Not Found';
       }
   }
@@ -77,10 +99,12 @@ export class OrdersComponent implements OnInit {
     if( this.orderService.searchByDate(date,this.allOrders).length != 0)
       {
         this.orders = this.orderService.searchByDate(date,this.allOrders);
+        this.calculateNumOfPages();
       }
       else
       {
         this.orders = this.orderService.searchByDate(date,this.allOrders);
+        this.calculateNumOfPages();
         this.message = 'Data Not Found';
       }
   }
@@ -89,10 +113,12 @@ export class OrdersComponent implements OnInit {
     if( this.orderService.searchByStatus(status,this.allOrders).length != 0)
       {
         this.orders = this.orderService.searchByStatus(status,this.allOrders);
+        this.calculateNumOfPages();
       }
       else
       {
         this.orders = this.orderService.searchByStatus(status,this.allOrders);
+        this.calculateNumOfPages();
         this.message = 'Data Not Found';
       }
   }
@@ -101,10 +127,12 @@ export class OrdersComponent implements OnInit {
     if( this.orderService.searchByCustomerName(name,this.allOrders).length != 0)
       {
         this.orders = this.orderService.searchByCustomerName(name,this.allOrders);
+        this.calculateNumOfPages();
       }
       else
       {
         this.orders = this.orderService.searchByCustomerName(name,this.allOrders);
+        this.calculateNumOfPages();
         this.message = 'Data Not Found';
       }
   }

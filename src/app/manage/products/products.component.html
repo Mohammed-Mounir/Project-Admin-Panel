@@ -56,7 +56,7 @@
               <p style="font-weight: 800;text-align: center;">Total : {{products.length}}</p>
              </tr>
              <h3 style="width: 300px;" *ngIf='products.length === 0'>{{message}}</h3>
-            <tr *ngFor="let Product of products, let i = index">
+            <tr *ngFor="let Product of getSlicedArrayOfProducts(), let i = index">
               <td>{{ Product._id  }}</td>
               <td>{{ Product.productName }}</td>
               <!-- <td>{{ Product.productCategory}}</td>
@@ -118,7 +118,33 @@
             </tr>
           </tbody>
         </table>
-
+        <div class="row">
+          <div class="col-7"></div>
+          <div class="col-5">
+             <nav aria-label="...">
+               <ul class="pagination justify-content-center">
+    
+                 <li class="page-link" (click)="currentPage===0?currentPage:currentPage=currentPage-1"
+                   style="cursor: pointer;">
+                   <i class="fas fa-long-arrow-alt-left"></i>
+                 </li>
+    
+                 <li *ngFor="let page of numOfPages; let i = index" class="page-link" (click)="currentPage = i"
+                   [ngClass]="(i === currentPage)? 'active' : '' " style="cursor: pointer;">
+                   {{ page }}
+                   
+                 </li>
+    
+                 <li class="page-link " (click)="currentPage>=lastPage-1?currentPage:currentPage=currentPage+1"
+                   style="cursor: pointer;">
+                   <i class="fas fa-long-arrow-alt-right"></i>
+                 </li>
+    
+               </ul>
+    
+             </nav>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -8,7 +8,7 @@ import { SellersService } from 'src/app/_services/sellers.service';
   styleUrls: ['./sellers.component.scss']
 })
 export class SellersComponent implements OnInit {
-  sellers: Seller[] = [];
+  sellers: any = [];
   message = 'Loading ...';
   input =['id' ,'name' ,'category' ,'email' ];
   numOfPages: number[] = [];
@@ -53,32 +53,35 @@ export class SellersComponent implements OnInit {
       }
     }
   }
+   
   idSearch(id) {
-    this.clearSearch('id');
-      if( this.sellersService.SearchById(id).length != 0)
-      {
-        this.sellers = this.sellersService.SearchById(id);
-      }
-      else
-      {
-        this.sellers = this.sellersService.SearchById(id);
-        this.message = 'Data Not Found';
-      }
-     
-    
+    this.sellersService.getAllSellers().subscribe(
+      (res) => {
+        if(res){
+          this.sellers = res;
+          this.sellers=this.sellersService.searchById(res,id)
+        }else{
+          this.message = 'Data Not Found';
+        }
+      },
+      (err) => {console.log(err);},
+      () => {()=>this.clearSearch('name'); },
+    )
   }
   
   nameSearch(name) {
-    this.clearSearch('name');
-    if( this.sellersService.SearchByName(name).length != 0)
-      {
-        this.sellers = this.sellersService.SearchByName(name);
-      }
-      else
-      {
-        this.sellers = this.sellersService.SearchByName(name);
-        this.message = 'Data Not Found';
-      }
+    this.sellersService.getAllSellers().subscribe(
+      (res) => {
+        if(res){
+          this.sellers = res;
+          this.sellers=this.sellersService.SearchByName(res,name)
+        }else{
+          this.message = 'Data Not Found';
+        }
+      },
+      (err) => {console.log(err);},
+      () => {()=>this.clearSearch('name'); },
+    )
   }
 
   categorySearch(category) {

@@ -18,6 +18,9 @@ export class SellersService {
   getSellerById(id:string){
     return this.httpClinet.get(this.baseUrl+'api/sellers/id/'+id);
   }
+  getSellerByName(sellerName:string){
+    return this.httpClinet.get(this.baseUrl+'api/sellers/name/'+sellerName);
+  }
 
   addSeller(seller: Seller) {
 
@@ -48,13 +51,14 @@ export class SellersService {
   }
     
  ////////////////////////////////////////////////////
-  SearchById(id) {
-    return this.sellers.filter(s => s._id.includes(id));
-   
-  }
+searchById(res,id){
+  return res.filter(p=> p._id.includes(id));
+}
 
-  SearchByName(name) {
-    return this.sellers.filter(s => s.sellerName.toLowerCase().includes(name.toLowerCase()));
+  SearchByName(res, searchQuery) {
+    const sellerName = searchQuery.toLowerCase();
+    this.sellers = res;
+    return this.sellers.filter(seller => seller.sellerName.toLowerCase().includes(sellerName));
   }
 
   SearchByCategory(category) {

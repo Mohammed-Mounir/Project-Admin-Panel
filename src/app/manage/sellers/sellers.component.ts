@@ -9,42 +9,87 @@ import { SellersService } from 'src/app/_services/sellers.service';
 })
 export class SellersComponent implements OnInit {
   sellers: Seller[] = [];
-
+  message = 'Loading ...';
+  input =['id' ,'name' ,'category' ,'email' ];
   constructor(private sellersService: SellersService) { }
 
   ngOnInit(): void {
-    this.sellers = this.sellersService.getAllSellers(); 
-    console.log(this.sellers); 
-
+    this.sellersService.getAllSellers().subscribe(
+      (res:any)=>{
+        this.sellers = res;
+        
+      },
+      (err)=>{console.error(err)},
+      ()=>{}
+    );
   }
 
   delete(i) {
     this.sellers.splice(i, 1);
   }
+  clearSearch(except){
 
-  idSearch(searchquery) {
-     this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-     this.sellers = this.sellersService.SearchById(searchquery);
+    for(let i of this.input)
+    {
+      if(i != except)
+      {
+        let inp = document.getElementById(i) as HTMLInputElement;
+        inp.value = '';
+      }
+    }
+  }
+  idSearch(id) {
+    this.clearSearch('id');
+      if( this.sellersService.SearchById(id).length != 0)
+      {
+        this.sellers = this.sellersService.SearchById(id);
+      }
+      else
+      {
+        this.sellers = this.sellersService.SearchById(id);
+        this.message = 'Data Not Found';
+      }
+     
     
   }
   
-  nameSearch(searchquery) {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-    this.sellers = this.sellersService.SearchByName(searchquery);
+  nameSearch(name) {
+    this.clearSearch('name');
+    if( this.sellersService.SearchByName(name).length != 0)
+      {
+        this.sellers = this.sellersService.SearchByName(name);
+      }
+      else
+      {
+        this.sellers = this.sellersService.SearchByName(name);
+        this.message = 'Data Not Found';
+      }
   }
 
-  categorySearch(searchquery) {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-    this.sellers = this.sellersService.SearchByCategory(searchquery);
+  categorySearch(category) {
+    this.clearSearch('category');
+    if( this.sellersService.SearchByCategory(category).length != 0)
+      {
+        this.sellers = this.sellersService.SearchByCategory(category);
+      }
+      else
+      {
+        this.sellers = this.sellersService.SearchByCategory(category);
+        this.message = 'Data Not Found';
+      }
   }
 
-  emailSearch(searchquery) {
-    this.sellers = this.sellersService.getAllSellers();
-    console.log(searchquery);
-    this.sellers = this.sellersService.SearchByEmail(searchquery);
+  emailSearch(email) {
+    this.clearSearch('email');
+    if( this.sellersService.SearchByEmail(email).length != 0)
+      {
+        this.sellers = this.sellersService.SearchByEmail(email);
+      }
+      else
+      {
+        this.sellers = this.sellersService.SearchByEmail(email);
+        this.message = 'Data Not Found';
+      }
   }
 
 

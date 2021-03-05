@@ -3,15 +3,18 @@ import { Address } from './address';
 
 export interface Seller {
     _id?: string;
-    sellerName?: string;
-    sellerId?: string;
-    category?: string;
+    sellerName?: String;
+    name?: { first: String, last: String };
+    email?: String;
+    phone?: String;
+    category?: String;
     address?: Address;
-    logo?: string;
-    shortDesc?: string;
-    websiteURL?: string;
-    email?: string;
-    password?: string;
+    logoImg?: String;
+    shortDesc?: String;
+    password?: String;
+    repeatedPassword?:String;
+    dateOfRegister?: String;
+    provider?: String;
 
 }
 

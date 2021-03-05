@@ -35,8 +35,9 @@
                #InputEmail (input)='emailSearch(InputEmail.value)'/>
             </td>
           </tr>
+          <h3 style="width: 300px;" *ngIf='sellers.length === 0'>{{message}}</h3>
           <tr *ngFor="let seller of sellers let i = index">
-            <td>{{ seller.sellerId }}</td>
+            <td>{{ seller._id }}</td>
             <td>{{ seller.sellerName }}</td>
             <td>{{ seller.category }}</td>
             <td>{{ seller.email }}</td>
@@ -54,15 +55,14 @@
                      </div>
                      <div class="modal-body">
                        <ul id="modalList">
-                         <li>Seller id : {{seller.sellerId }}</li>
+                         <li>Seller id : {{seller._id }}</li>
                          <li>Seller name : {{ seller.sellerName }}</li>
                          <li>Category : {{seller.category }} </li>
-                         <li>Location : latitude = {{seller.address.geoMap.latitude }} ,
-                            longitude = {{seller.address.geoMap.longitude }} </li>
+                         <!-- <li>Location : latitude = {{seller.address.geoMap.latitude }} ,
+                            longitude = {{seller.address.geoMap.longitude }} </li> -->
                          <li>Email : {{seller.email}} </li>
-                         <li>Website url : {{seller.websiteURL}} </li>
                          <li>Short description : {{seller.shortDesc}} </li>
-                         <li><img id="adImg" [src]="seller.logo"> </li>
+                         <li><img id="adImg" [src]="seller.logoImg"> </li>
                        </ul>
                         
 

@@ -41,7 +41,7 @@
               <td>{{ shipment._id }}</td>
               <td>{{ shipment.paymentMethod }}</td>
               <td>{{ shipment.shippingCompany }}</td>
-              <td>{{ shipment.deliveryDate }}</td>
+              <td>{{ shipment.deliveryDate|date:"fullDate"}}</td>
               
               <td>
                 <i class="fas fa-eye  view mx-1" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"></i>
@@ -58,6 +58,7 @@
                          <ul id="modalList">
                            <li>shipment id : {{shipment._id }}</li>
                            <li>shipping Company: {{ shipment.shippingCompany}}</li>
+                           <li>deliveryDate: {{ shipment.deliveryDate|date:"fullDate"}}</li>
                            <li>payment Method: {{shipment.paymentMethod}} </li>
                            <li>Shipment Address : {{shipment.shipmentAddress.street}}-{{shipment.shipmentAddress.city}}-{{shipment.shipmentAddress.country}}</li>
                            <li>total Price : {{shipment.totalPrice}} </li>

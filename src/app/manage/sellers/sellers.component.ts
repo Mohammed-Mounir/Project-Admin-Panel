@@ -11,19 +11,34 @@ export class SellersComponent implements OnInit {
   sellers: Seller[] = [];
   message = 'Loading ...';
   input =['id' ,'name' ,'category' ,'email' ];
+  numOfPages: number[] = [];
+  pageSize = 30;
+  currentPage = 0;
+  lastPage = 0;
   constructor(private sellersService: SellersService) { }
 
   ngOnInit(): void {
     this.sellersService.getAllSellers().subscribe(
       (res:any)=>{
         this.sellers = res;
-        
+        this.lastPage = this.sellers.length / this.pageSize;
+        this.calculateNumOfPages();
       },
       (err)=>{console.error(err)},
       ()=>{}
     );
   }
-
+  getSlicedArrayOfSellers() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    return this.sellers.slice(start, end);
+  }
+  calculateNumOfPages() {
+    this.numOfPages = [];
+    for (let index = 0; index < this.sellers.length / this.pageSize; index++) {
+      this.numOfPages.push(index + 1);
+    }
+  }
   delete(i) {
     this.sellers.splice(i, 1);
   }

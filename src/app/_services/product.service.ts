@@ -1577,7 +1577,7 @@ export class ProductService {
     {
       for(let sel of seller)
       {
-        if(prod.productSales === sel.sellerId)
+        if(prod.productSales === sel._id)
         {
           ans.push(prod);
         }

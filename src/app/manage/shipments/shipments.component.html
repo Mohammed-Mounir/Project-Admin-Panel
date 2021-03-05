@@ -7,13 +7,13 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Manage Sellers</th>
+              <th scope="col">Manage shipments</th>
             </tr>
             <tr>
-              <th scope="col">Seller ID</th> 
-              <th scope="col">Seller Name</th>
-              <th scope="col">Category</th>
-              <th scope="col">Email</th>
+              <th scope="col">Shipment ID</th> 
+              <th scope="col">Payment Method</th>
+              <th scope="col">Delivery Company</th>
+              <th scope="col">date of deleivery</th>
             </tr>
           </thead>
           <tbody>
@@ -23,25 +23,25 @@
                  #InputId (input)='idSearch(InputId.value)' />
               </td>
               <td scope="col">
-                <input placeholder="Search by Name" type="text" name="name" 
-                 #InputName (input)='nameSearch(InputName.value)'/>
+                <input placeholder="Search by Payment" type="text" name="payment" 
+                 #InputPayment (input)='paymentSearch(InputPayment.value)'/>
               </td>
               <td scope="col">
-                <input placeholder="Search by Category" type="text" name="category"
-                  #InputCategory (input)='categorySearch(InputCategory.value)'/>
+                <input placeholder="Search by Company" type="text" name="company"
+                  #InputCompany (input)='companySearch(InputCompany.value)'/>
               </td>
               <td scope="col">
-                <input placeholder="Search by Email" type="text" name="email" 
-                 #InputEmail (input)='emailSearch(InputEmail.value)'/>
+                <input placeholder="Search by Date" type="text" name="date" 
+                 #InputDate (input)='dateSearch(InputDate.value)'/>
               </td>
-              <p style="font-weight: 800;">Total : {{sellers.length}}</p>
+              <p style="font-weight: 800;">Total : {{shipments.length}}</p>
             </tr>
-            <h3 style="width: 300px;" *ngIf='sellers.length === 0'>{{message}}</h3>
-            <tr *ngFor="let seller of getSlicedArrayOfSellers() let i = index">
-              <td>{{ seller._id }}</td>
-              <td>{{ seller.sellerName }}</td>
-              <td>{{ seller.category }}</td>
-              <td>{{ seller.email }}</td>
+            <h3 style="width: 300px;" *ngIf='shipments.length === 0'>{{message}}</h3>
+            <tr *ngFor="let shipment of getSlicedArrayOfShipments() let i = index">
+              <td>{{ shipment._id }}</td>
+              <td>{{ shipment.paymentMethod }}</td>
+              <td>{{ shipment.shippingCompany }}</td>
+              <td>{{ shipment.deliveryDate }}</td>
               
               <td>
                 <i class="fas fa-eye  view mx-1" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"></i>
@@ -51,18 +51,18 @@
                    <div class="modal-dialog">
                      <div class="modal-content">
                        <div class="modal-header">
-                         <h5 class="modal-title" id="exampleModalLabel">Advertsements Details</h5>
+                         <h5 class="modal-title" id="exampleModalLabel">Shipments Details</h5>
                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                        </div>
                        <div class="modal-body">
                          <ul id="modalList">
-                           <li>Seller id : {{seller._id }}</li>
-                           <li>Seller name : {{ seller.sellerName }}</li>
-                           <li>Category : {{seller.category }} </li>
-                           <li>Address : {{seller.address.street}}-{{seller.address.city}}-{{seller.address.country}}</li>
-                           <li>Email : {{seller.email}} </li>
-                           <li>Short description : {{seller.shortDesc}} </li>
-                           <li><img id="adImg" src={{seller.logoImg}}> </li>
+                           <li>shipment id : {{shipment._id }}</li>
+                           <li>shipping Company: {{ shipment.shippingCompany}}</li>
+                           <li>payment Method: {{shipment.paymentMethod}} </li>
+                           <li>Shipment Address : {{shipment.shipmentAddress.street}}-{{shipment.shipmentAddress.city}}-{{shipment.shipmentAddress.country}}</li>
+                           <li>total Price : {{shipment.totalPrice}} </li>
+                           <li>delivery Fees: {{shipment.deliveryFees}} </li>
+                           <li>userID: {{shipment.userID}} </li>
                          </ul>
                           
   

@@ -1,44 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { SellersService } from 'src/app/_services/sellers.service';
+import { ShipmentsService } from 'src/app/_services/shipments.service';
+
 @Component({
   selector: 'app-shipments',
   templateUrl: './shipments.component.html',
   styleUrls: ['./shipments.component.scss']
 })
 export class ShipmentsComponent implements OnInit {
-  sellers: any = [];
+  shipments: any = [];
   message = 'Loading ...';
-  input =['id' ,'name' ,'category' ,'email' ];
+  input =['id' ,'payment' ,'company' ,'date' ];
   numOfPages: number[] = [];
   pageSize = 30;
   currentPage = 0;
   lastPage = 0;
-  constructor(private sellersService: SellersService) { }
+  constructor(private shipmentsService: ShipmentsService) { }
 
   ngOnInit(): void {
-    this.sellersService.getAllSellers().subscribe(
+    this.shipmentsService.getAllShipments().subscribe(
       (res:any)=>{
-        this.sellers = res;
-        this.lastPage = this.sellers.length / this.pageSize;
+        this.shipments = res;
+        this.lastPage = this.shipments.length / this.pageSize;
         this.calculateNumOfPages();
       },
       (err)=>{console.error(err)},
       ()=>{}
     );
   }
-  getSlicedArrayOfSellers() {
+  getSlicedArrayOfShipments() {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
-    return this.sellers.slice(start, end);
+    return this.shipments.slice(start, end);
   }
   calculateNumOfPages() {
     this.numOfPages = [];
-    for (let index = 0; index < this.sellers.length / this.pageSize; index++) {
+    for (let index = 0; index < this.shipments.length / this.pageSize; index++) {
       this.numOfPages.push(index + 1);
     }
   }
-  delete(i) {
-    this.sellers.splice(i, 1);
+  delete(id) {
+    this.shipmentsService.deleteShipments(id).subscribe(
+      (res)=>{
+        this.shipmentsService.getAllShipments().subscribe(
+          (res:any)=>{
+            this.shipments = res;
+            this.calculateNumOfPages();
+          },
+          (err)=>{console.error(err)},
+          ()=>{}
+        );
+      },
+      (err)=>{console.error(err)},
+      ()=>{}
+    );
   }
   clearSearch(except){
 
@@ -53,11 +67,11 @@ export class ShipmentsComponent implements OnInit {
   }
    
   idSearch(id) {
-    this.sellersService.getAllSellers().subscribe(
+    this.shipmentsService.getAllShipments().subscribe(
       (res) => {
         if(res){
-          this.sellers = res;
-          this.sellers=this.sellersService.searchById(res,id)
+          this.shipments = res;
+          this.shipments=this.shipmentsService.searchById(res,id)
         }else{
           this.message = 'Data Not Found';
         }
@@ -67,12 +81,12 @@ export class ShipmentsComponent implements OnInit {
     )
   }
   
-  nameSearch(name) {
-    this.sellersService.getAllSellers().subscribe(
+  paymentSearch(payment) {
+    this.shipmentsService.getAllShipments().subscribe(
       (res) => {
         if(res){
-          this.sellers = res;
-          this.sellers=this.sellersService.SearchByName(res,name)
+          this.shipments = res;
+          this.shipments=this.shipmentsService.searchByPayment(res,payment)
         }else{
           this.message = 'Data Not Found';
         }
@@ -82,12 +96,12 @@ export class ShipmentsComponent implements OnInit {
     )
   }
 
-  categorySearch(category) {
-    this.sellersService.getAllSellers().subscribe(
+  companySearch(company) {
+    this.shipmentsService.getAllShipments().subscribe(
       (res) => {
         if(res){
-          this.sellers = res;
-          this.sellers=this.sellersService.SearchByCategory(res,category)
+          this.shipments = res;
+          this.shipments=this.shipmentsService.searchByCompany(res,company)
         }else{
           this.message = 'Data Not Found';
         }
@@ -97,12 +111,12 @@ export class ShipmentsComponent implements OnInit {
     )
   }
 
-  emailSearch(email) {
-    this.sellersService.getAllSellers().subscribe(
+  dateSearch(date) {
+    this.shipmentsService.getAllShipments().subscribe(
       (res) => {
         if(res){
-          this.sellers = res;
-          this.sellers=this.sellersService.SearchByEmail(res,email)
+          this.shipments = res;
+          this.shipments=this.shipmentsService.searchByDate(res,date)
         }else{
           this.message = 'Data Not Found';
         }

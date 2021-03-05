@@ -18,11 +18,3 @@ export interface Seller {
 
 }
 
-/*
-
- location?: {
-     latitude?: number;
-    longitude?: number;
-};
-
-*/

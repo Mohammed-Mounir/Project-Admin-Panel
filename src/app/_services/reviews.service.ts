@@ -8,7 +8,7 @@ import { Review } from '../_model/reviews';
 })
 export class ReviewsService {
   reviews: Review[] = [];
-  baseUrl: string = 'http://localhost:3000/api/reviews';
+  baseUrl: string = 'https://iti-amzon-backend.herokuapp.com/api/reviews';
 
   constructor(private http: HttpClient) {}
 

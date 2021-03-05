@@ -1,1 +1,112 @@
-<p>shipments works!</p>
+<div class="contianer-fluid">
+    <div class="row">
+      <div class="col-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Manage Sellers</th>
+            </tr>
+            <tr>
+              <th scope="col">Seller ID</th> 
+              <th scope="col">Seller Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="col">
+                <input placeholder="Search by Id" type="text" name="id"  
+                 #InputId (input)='idSearch(InputId.value)' />
+              </td>
+              <td scope="col">
+                <input placeholder="Search by Name" type="text" name="name" 
+                 #InputName (input)='nameSearch(InputName.value)'/>
+              </td>
+              <td scope="col">
+                <input placeholder="Search by Category" type="text" name="category"
+                  #InputCategory (input)='categorySearch(InputCategory.value)'/>
+              </td>
+              <td scope="col">
+                <input placeholder="Search by Email" type="text" name="email" 
+                 #InputEmail (input)='emailSearch(InputEmail.value)'/>
+              </td>
+              <p style="font-weight: 800;">Total : {{sellers.length}}</p>
+            </tr>
+            <h3 style="width: 300px;" *ngIf='sellers.length === 0'>{{message}}</h3>
+            <tr *ngFor="let seller of getSlicedArrayOfSellers() let i = index">
+              <td>{{ seller._id }}</td>
+              <td>{{ seller.sellerName }}</td>
+              <td>{{ seller.category }}</td>
+              <td>{{ seller.email }}</td>
+              
+              <td>
+                <i class="fas fa-eye  view mx-1" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"></i>
+                <i class="fas fa-trash-alt  mx-1 trash" (click)='delete(i)'></i>
+                 <div class="modal fade" id="adv{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                   <div class="modal-dialog">
+                     <div class="modal-content">
+                       <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel">Advertsements Details</h5>
+                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                       </div>
+                       <div class="modal-body">
+                         <ul id="modalList">
+                           <li>Seller id : {{seller._id }}</li>
+                           <li>Seller name : {{ seller.sellerName }}</li>
+                           <li>Category : {{seller.category }} </li>
+                           <li>Address : {{seller.address.street}}-{{seller.address.city}}-{{seller.address.country}}</li>
+                           <li>Email : {{seller.email}} </li>
+                           <li>Short description : {{seller.shortDesc}} </li>
+                           <li><img id="adImg" src={{seller.logoImg}}> </li>
+                         </ul>
+                          
+  
+                       </div>
+                       <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-7"></div>
+        <div class="col-5">
+           <nav aria-label="...">
+             <ul class="pagination justify-content-center">
+  
+               <li class="page-link" (click)="currentPage===0?currentPage:currentPage=currentPage-1"
+                 style="cursor: pointer;">
+                 <i class="fas fa-long-arrow-alt-left"></i>
+               </li>
+  
+               <li *ngFor="let page of numOfPages; let i = index" class="page-link" (click)="currentPage = i"
+                 [ngClass]="(i === currentPage)? 'active' : '' " style="cursor: pointer;">
+                 {{ page }}
+                 
+               </li>
+  
+               <li class="page-link " (click)="currentPage>=lastPage-1?currentPage:currentPage=currentPage+1"
+                 style="cursor: pointer;">
+                 <i class="fas fa-long-arrow-alt-right"></i>
+               </li>
+  
+             </ul>
+  
+           </nav>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

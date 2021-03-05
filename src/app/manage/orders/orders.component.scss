@@ -7,7 +7,14 @@
     color: green;
     cursor: pointer;
 }
-
+.complete{
+  color: green;
+  cursor: pointer;
+}
+.cancle{
+  color: red;
+  cursor: pointer;
+}
 #modalList{
     list-style-type: none; 
 }
@@ -18,3 +25,26 @@
 input::placeholder{
     font-size: 13px;
 }
+
+.pagination>li {
+    background-color: #eff1f3 !important;
+    color: #5a5a5a;
+  }
+  
+  .pagination>li:focus,
+  .pagination>li:hover {
+    background-color: #e6e2e2 !important;
+    border-color: #c9c8c8;
+  }
+  
+  .pagination>.active {
+    color: #e77600;
+    background-color: #ffffff !important;
+    border: solid 1px #e77600 !important;
+  }
+  
+  .pagination>.active:hover {
+    color: #e77600; 
+    background-color: #eff1f3 !important;
+    border: solid 1px #838383 !important;
+  }

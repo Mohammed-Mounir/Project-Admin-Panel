@@ -9,7 +9,8 @@ export class UsersService {
   users:User[]=[];
 
 
-  baseUrl = 'http://localhost:3000/';
+  /* baseUrl = 'http://localhost:3000/'; */
+  baseUrl = 'https://iti-amzon-backend.herokuapp.com/';
 
   constructor(private httpClient: HttpClient) { }
 

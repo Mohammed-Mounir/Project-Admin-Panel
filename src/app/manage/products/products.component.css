@@ -1,2 +1,34 @@
+.trash:hover {
+  color: red;
+  cursor: pointer;
+}
 
+.view:hover {
+  color: green;
+  cursor: pointer;
+}
+
+#modalList {
+  list-style-type: none;
+}
+
+#adImg {
+  width: 80%;
+}
+
+input::-moz-placeholder {
+  font-size: 10px;
+}
+
+input:-ms-input-placeholder {
+  font-size: 10px;
+}
+
+input::placeholder {
+  font-size: 10px;
+}
+
+select {
+  font-weight: 100;
+}
 /*# sourceMappingURL=products.component.css.map */

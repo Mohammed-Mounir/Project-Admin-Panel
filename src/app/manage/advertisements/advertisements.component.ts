@@ -8,7 +8,13 @@ import { AdvertisementsService } from 'src/app/_services/advertisements.service'
   styleUrls: ['./advertisements.component.scss']
 })
 export class AdvertisementsComponent implements OnInit {
-  advertisements ; 
+  advertisements;
+  numOfPages: number[] = [];
+
+  pageSize = 30;
+
+  currentPage = 0;
+  lastPage = 0; 
 
   constructor(private advertisementsService: AdvertisementsService) { }
 
@@ -18,16 +24,18 @@ export class AdvertisementsComponent implements OnInit {
 
         this.advertisements = res;
         // console.log(res);
-        console.log('onInit',this.advertisements.length);
-        
-       },
-      (err) => { 
-        console.log(err);
-        
+        console.log('onInit', this.advertisements.length);
+        this.lastPage = this.advertisements.length / this.pageSize;
+        this.calculateNumOfPages();
+
       },
-      () => { },  
+      (err) => {
+        console.log(err);
+
+      },
+      () => { },
     );
-    
+
 
   }
 
@@ -36,10 +44,41 @@ export class AdvertisementsComponent implements OnInit {
   delete(i) {
 
     console.log(this.advertisements[i]._id);
-    
+
     this.advertisements.splice(i, 1);
 
-    // this.advertisementsService.deleteAd(this.advertisements[i]._id);
+    // this.advertisementsService.deleteAd(this.advertisements[i]._id).subscribe(
+    //   (res) => {
+    //     this.advertisementsService.getAllAds().subscribe(
+    //       (res) => {
+
+    //         this.advertisements = res;
+    //         // console.log(res);
+    //         // console.log('onInit', this.advertisements.length);
+
+    //       },
+    //       (err) => {
+    //         console.log(err);
+    //       },
+    //       () => { },
+    //     );
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     this.advertisementsService.getAllAds().subscribe(
+    //       (res) => {
+    //         this.advertisements = res;
+    //       },
+    //       (err) => {
+    //         console.log(err);
+
+    //       },
+    //       () => { },
+    //     );
+
+    //   },
+    //   () => { },
+    // );
 
 
   }
@@ -63,7 +102,7 @@ export class AdvertisementsComponent implements OnInit {
       },
       () => { },
     );
-  
+
   }
 
   nameSearch(searchquery) {
@@ -125,6 +164,19 @@ export class AdvertisementsComponent implements OnInit {
       },
       () => { },
     );
+  }
+
+  getSlicedArrayOfAds() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    return this.advertisements.slice(start, end);
+  }
+
+  calculateNumOfPages() {
+    this.numOfPages = [];
+    for (let index = 0; index < this.advertisements.length / this.pageSize; index++) {
+      this.numOfPages.push(index + 1);
+    }
   }
 
 }

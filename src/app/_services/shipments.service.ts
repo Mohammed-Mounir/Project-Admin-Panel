@@ -1,6 +1,7 @@
 import { Shipments } from './../_model/shipments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,8 @@ searchById(res,id){
   }
 
   searchByDate(res,date) {
-    const shipmentDate = date.toLowerCase();
     this.shipments = res;
-    return this.shipments.filter(shipments => shipments.deliveryDate.toLowerCase().includes(shipmentDate));
+    return this.shipments.filter(shipments => shipments.deliveryDate.includes(date));
   }
 
   searchByPayment(res,payment) {

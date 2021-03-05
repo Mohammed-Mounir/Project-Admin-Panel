@@ -85,29 +85,33 @@ export class SellersComponent implements OnInit {
   }
 
   categorySearch(category) {
-    this.clearSearch('category');
-    if( this.sellersService.SearchByCategory(category).length != 0)
-      {
-        this.sellers = this.sellersService.SearchByCategory(category);
-      }
-      else
-      {
-        this.sellers = this.sellersService.SearchByCategory(category);
-        this.message = 'Data Not Found';
-      }
+    this.sellersService.getAllSellers().subscribe(
+      (res) => {
+        if(res){
+          this.sellers = res;
+          this.sellers=this.sellersService.SearchByCategory(res,category)
+        }else{
+          this.message = 'Data Not Found';
+        }
+      },
+      (err) => {console.log(err);},
+      () => {()=>this.clearSearch('name'); },
+    )
   }
 
   emailSearch(email) {
-    this.clearSearch('email');
-    if( this.sellersService.SearchByEmail(email).length != 0)
-      {
-        this.sellers = this.sellersService.SearchByEmail(email);
-      }
-      else
-      {
-        this.sellers = this.sellersService.SearchByEmail(email);
-        this.message = 'Data Not Found';
-      }
+    this.sellersService.getAllSellers().subscribe(
+      (res) => {
+        if(res){
+          this.sellers = res;
+          this.sellers=this.sellersService.SearchByEmail(res,email)
+        }else{
+          this.message = 'Data Not Found';
+        }
+      },
+      (err) => {console.log(err);},
+      () => {()=>this.clearSearch('name'); },
+    )
   }
 
 

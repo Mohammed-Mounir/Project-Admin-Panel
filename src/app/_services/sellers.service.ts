@@ -59,6 +59,7 @@ searchById(res,id){
   }
  
   deleteSeller(id: string) {
+    console.log(id)
     return this.httpClinet.delete(this.baseUrl+'api/sellers/'+id);
   }
     

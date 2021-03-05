@@ -45,7 +45,7 @@
             
             <td>
               <i class="fas fa-eye  view mx-1" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"></i>
-              <i class="fas fa-trash-alt  mx-1 trash" (click)='delete(i)'></i>
+              <i class="fas fa-trash-alt  mx-1 trash" (click)='delete(seller._id)'></i>
                <div class="modal fade" id="adv{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                  <div class="modal-dialog">

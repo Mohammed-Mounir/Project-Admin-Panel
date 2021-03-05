@@ -38,8 +38,21 @@ export class SellersComponent implements OnInit {
       this.numOfPages.push(index + 1);
     }
   }
-  delete(i) {
-    this.sellers.splice(i, 1);
+  delete(id) {
+    this.sellersService.deleteSeller(id).subscribe(
+      (res)=>{
+        this.sellersService.getAllSellers().subscribe(
+          (res:any)=>{
+            this.sellers = res;
+            this.calculateNumOfPages();
+          },
+          (err)=>{console.error(err)},
+          ()=>{}
+        );
+      },
+      (err)=>{console.error(err)},
+      ()=>{}
+    );
   }
   clearSearch(except){
 

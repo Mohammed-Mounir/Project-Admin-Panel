@@ -12,7 +12,7 @@
               <th scope="col">Order ID</th>
               <th scope="col">Order Date</th>
               <th scope="col">Order Status</th>
-              <th scope="col">Customer Name</th>
+              <th scope="col">Customer ID</th>
             </tr>
           </thead>
           <tbody>
@@ -36,16 +36,19 @@
               <p style="font-weight: 800;text-align: center;">Total : {{orders.length}}</p>
              </tr>
              <h3 style="width: 300px;" *ngIf='orders.length === 0'>{{message}}</h3>
-            <tr *ngFor="let order of orders, let i = index">
+            <tr *ngFor="let order of getSlicedArrayOfOrders(), let i = index">
               <td>{{  order._id  }}</td>
               <td>{{ order.orderDate }}</td>
               <td>{{ order.orderStatus }}</td>
               <td>{{ order.customerId }}</td>
               <td>
                 <div class="text-center">
-                  <i class="fas fa-eye  view" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"> </i>
-                  <i class="fas fa-edit mx-2"></i>
-                  <i class="fas fa-trash-alt  trash" (click)='delete(order._id)'></i>
+                  <i class="fas fa-eye  view m-1" data-bs-toggle="modal" [attr.data-bs-target]="'#adv'+i"> </i>
+                  <i class="fas fa-trash-alt m-1 trash" (click)='delete(order._id)'></i>
+                  <div *ngIf='order.orderStatus == "Pending"'>
+                    <i class="fas fa-check m-1 complete" (click)='complete(order._id)'></i>
+                    <i class="fas fa-times m-1 cancle" (click)='cancel(order._id)'></i>
+                  </div>
                 </div>
               
                 <div class="modal fade" id="adv{{i}}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -74,7 +77,9 @@
                           <li>Total Of Order : {{order.orderPrice }}</li>
                           <li>Order Date : {{order.orderDate}} </li>
                           <li>Order Status : {{order.orderStatus}} </li>
-                          <li>Customer Name : {{order.customerId}} </li>
+                          <li>Customer Name : {{getName(order.customerId)}} </li>
+                          <li *ngIf='order.orderStatus==="Completed"'>Delivered on : {{order.deliveryDate}} </li>
+                          <li *ngIf='order.orderStatus==="Pending"'>To Be Delivered on : {{order.deliveryDate}} </li>
                           <li>Delivery Details : <ol style="list-style-type: none;">
                             <li>{{order.shippingAddress.state}} </li>
                             <li>{{order.shippingAddress.street}} </li>
@@ -94,7 +99,33 @@
             </tr>
           </tbody>
         </table>
-
+        <div class="row">
+          <div class="col-7"></div>
+          <div class="col-5">
+             <nav aria-label="...">
+               <ul class="pagination justify-content-center">
+    
+                 <li class="page-link" (click)="currentPage===0?currentPage:currentPage=currentPage-1"
+                   style="cursor: pointer;">
+                   <i class="fas fa-long-arrow-alt-left"></i>
+                 </li>
+    
+                 <li *ngFor="let page of numOfPages; let i = index" class="page-link" (click)="currentPage = i"
+                   [ngClass]="(i === currentPage)? 'active' : '' " style="cursor: pointer;">
+                   {{ page }}
+                   
+                 </li>
+    
+                 <li class="page-link " (click)="currentPage>=lastPage-1?currentPage:currentPage=currentPage+1"
+                   style="cursor: pointer;">
+                   <i class="fas fa-long-arrow-alt-right"></i>
+                 </li>
+    
+               </ul>
+    
+             </nav>
+          </div>
+        </div>
       </div>
     </div>
   </div>

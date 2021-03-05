@@ -1571,13 +1571,13 @@ export class ProductService {
     });
   }
   searchBySalesName(sellerName,products){
-    let seller:any = this.sellerService.SearchByName(sellerName);
+    let seller:any = this.sellerService.SearchByName(products,sellerName);
     let ans = [];
     for(let prod of products)
     {
       for(let sel of seller)
       {
-        if(prod.productSales === sel.sellerId)
+        if(prod.productSales === sel._id)
         {
           ans.push(prod);
         }

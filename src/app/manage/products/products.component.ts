@@ -13,6 +13,7 @@ import { WarehouseService } from 'src/app/_services/warehouse.service';
 })
 export class ProductsComponent implements OnInit {
   products:Product[]=[];
+  sellers;
   allProducts:Product[]=[];
   message = 'Loading ...';
   input =['id' ,'name' ,'type' ,'seller' ];
@@ -21,6 +22,10 @@ export class ProductsComponent implements OnInit {
   allSubCat;
   subCategories;
   colors;
+  numOfPages: number[] = [];
+  pageSize = 30;
+  currentPage = 0;
+  lastPage = 0;
   constructor(
     private productService : ProductService,
     private sellerService : SellersService,
@@ -30,10 +35,17 @@ export class ProductsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.sellerService.getAllSellers().subscribe(
+      (res)=>{this.sellers=res},
+      (err)=>{console.error(err)},
+      ()=>{},
+    )
     this.productService.getAllProducts().subscribe(
       (res:any)=>{
         this.products = res;
-        this.allProducts = res
+        this.allProducts = res;
+        this.lastPage = this.products.length / this.pageSize;
+        this.calculateNumOfPages();
       },
       (err)=>{console.error(err)},
       ()=>{}
@@ -42,14 +54,28 @@ export class ProductsComponent implements OnInit {
     this.allCategories = this.categoryService.getAllCategories();
     this.colors = this.colorService.allColors();
   }
-  sellerName(id){
-    if(id){
-      if(this.sellerService.SearchById(id)[0])
-      {
-        return this.sellerService.SearchById(id)[0].sellerName; 
-      }
+  calculateNumOfPages() {
+    this.numOfPages = [];
+    for (let index = 0; index < this.products.length / this.pageSize; index++) {
+      this.numOfPages.push(index + 1);
     }
-    return 'undefined'  
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
+    }
+  }
+  getSlicedArrayOfProducts() {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    return this.products.slice(start, end);
+  }
+  sellerName(id){    
+    if(id){
+      return this.sellers.find((seller)=>seller._id===id).sellerName
+    }
+     else
+     {
+      return 'undefined' 
+     }
   }
   warehouseName(id){
     if(id){
@@ -99,7 +125,7 @@ export class ProductsComponent implements OnInit {
           (res:any)=>{
             this.products = res;
             this.allProducts = res
-            
+            this.calculateNumOfPages();
           },
           (err)=>{console.error(err)},
           ()=>{}
@@ -127,10 +153,12 @@ export class ProductsComponent implements OnInit {
       if( this.productService.searchById(id,this.allProducts).length != 0)
       {
         this.products = this.productService.searchById(id,this.allProducts);
+        this.calculateNumOfPages();
       }
       else
       {
         this.products = this.productService.searchById(id,this.allProducts);
+        this.calculateNumOfPages();
         this.message = 'Data Not Found';
       }
   }
@@ -163,10 +191,12 @@ export class ProductsComponent implements OnInit {
     if(  this.productService.searchByType(type,this.allProducts).length != 0)
     {
       this.products = this.productService.searchByType(type,this.allProducts);
+      this.calculateNumOfPages();
     }
     else
     {
       this.products = this.productService.searchByType(type,this.allProducts);
+      this.calculateNumOfPages();
       this.message = 'Data Not Found';
     }
   }
@@ -187,10 +217,12 @@ export class ProductsComponent implements OnInit {
     if(  this.productService.searchByName(name,this.allProducts).length != 0)
       {
         this.products = this.productService.searchByName(name,this.allProducts);
+        this.calculateNumOfPages();
       }
       else
       {
         this.products = this.productService.searchByName(name,this.allProducts);
+        this.calculateNumOfPages();
         this.message = 'Data Not Found';
       }
     
@@ -198,6 +230,7 @@ export class ProductsComponent implements OnInit {
   sellerNameSearch(sellerName) {
     this.clearSearch('seller');
     this.products = this.productService.searchBySalesName(sellerName,this.allProducts);
+    this.calculateNumOfPages();
     if(  this.products.length === 0)
       {
         this.message = 'Data Not Found';

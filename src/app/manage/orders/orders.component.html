@@ -12,7 +12,7 @@
               <th scope="col">Order ID</th>
               <th scope="col">Order Date</th>
               <th scope="col">Order Status</th>
-              <th scope="col">Customer Name</th>
+              <th scope="col">Customer ID</th>
             </tr>
           </thead>
           <tbody>
@@ -36,7 +36,7 @@
               <p style="font-weight: 800;text-align: center;">Total : {{orders.length}}</p>
              </tr>
              <h3 style="width: 300px;" *ngIf='orders.length === 0'>{{message}}</h3>
-            <tr *ngFor="let order of orders, let i = index">
+            <tr *ngFor="let order of getSlicedArrayOfOrders(), let i = index">
               <td>{{  order._id  }}</td>
               <td>{{ order.orderDate }}</td>
               <td>{{ order.orderStatus }}</td>
@@ -77,7 +77,9 @@
                           <li>Total Of Order : {{order.orderPrice }}</li>
                           <li>Order Date : {{order.orderDate}} </li>
                           <li>Order Status : {{order.orderStatus}} </li>
-                          <li>Customer Name : {{order.customerId}} </li>
+                          <li>Customer Name : {{getName(order.customerId)}} </li>
+                          <li *ngIf='order.orderStatus==="Completed"'>Delivered on : {{order.deliveryDate}} </li>
+                          <li *ngIf='order.orderStatus==="Pending"'>To Be Delivered on : {{order.deliveryDate}} </li>
                           <li>Delivery Details : <ol style="list-style-type: none;">
                             <li>{{order.shippingAddress.state}} </li>
                             <li>{{order.shippingAddress.street}} </li>

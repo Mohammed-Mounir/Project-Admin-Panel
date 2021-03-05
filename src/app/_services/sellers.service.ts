@@ -49,7 +49,6 @@ export class SellersService {
     
  ////////////////////////////////////////////////////
   SearchById(id) {
-    console.log(this.sellers)
     return this.sellers.filter(s => s._id.includes(id));
    
   }

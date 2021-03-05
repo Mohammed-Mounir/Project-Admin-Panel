@@ -13,6 +13,7 @@ import { WarehouseService } from 'src/app/_services/warehouse.service';
 })
 export class ProductsComponent implements OnInit {
   products:Product[]=[];
+  sellers;
   allProducts:Product[]=[];
   message = 'Loading ...';
   input =['id' ,'name' ,'type' ,'seller' ];
@@ -34,6 +35,11 @@ export class ProductsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.sellerService.getAllSellers().subscribe(
+      (res)=>{this.sellers=res},
+      (err)=>{console.error(err)},
+      ()=>{},
+    )
     this.productService.getAllProducts().subscribe(
       (res:any)=>{
         this.products = res;
@@ -62,14 +68,14 @@ export class ProductsComponent implements OnInit {
     const end = start + this.pageSize;
     return this.products.slice(start, end);
   }
-  sellerName(id){
+  sellerName(id){    
     if(id){
-      if(this.sellerService.SearchById(id)[0])
-      {
-        return this.sellerService.SearchById(id)[0].sellerName; 
-      }
+      return this.sellers.find((seller)=>seller._id===id).sellerName
     }
-    return 'undefined'  
+     else
+     {
+      return 'undefined' 
+     }
   }
   warehouseName(id){
     if(id){

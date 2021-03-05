@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'src/app/_model/order';
 import { OrderService } from 'src/app/_services/order.service';
+import { UsersService } from 'src/app/_services/users.service';
 
 @Component({
   selector: 'app-orders',
@@ -9,6 +10,7 @@ import { OrderService } from 'src/app/_services/order.service';
 })
 export class OrdersComponent implements OnInit {
   orders:Order[]=[];
+  users;
   allOrders:Order[]=[];
   message = 'Loading ...';
   input =['id' ,'date' ,'status' ,'customer' ];
@@ -18,6 +20,7 @@ export class OrdersComponent implements OnInit {
   lastPage = 0;
   constructor(
     private orderService:OrderService,
+    private userService:UsersService
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +34,13 @@ export class OrdersComponent implements OnInit {
       (err)=>{console.error(err)},
       ()=>{}
     )
+    this.userService.getAllUsers().subscribe(
+      (res)=>{
+        this.users=res;
+      },
+      (err)=>{console.error(err)},
+      ()=>{},
+    )
   }
   calculateNumOfPages() {
     this.numOfPages = [];
@@ -41,7 +51,7 @@ export class OrdersComponent implements OnInit {
       this.numOfPages.push(0)
     }
   }
-  getSlicedArrayOfProducts() {
+  getSlicedArrayOfOrders() {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
     return this.orders.slice(start, end);
@@ -122,6 +132,9 @@ export class OrdersComponent implements OnInit {
         this.message = 'Data Not Found';
       }
   }
+  getName(id){
+    return this.users.find((user)=>user._id===id).userName;
+  }
   customerNameSearch(name){
     this.clearSearch('customer');
     if( this.orderService.searchByCustomerName(name,this.allOrders).length != 0)
@@ -143,7 +156,18 @@ export class OrdersComponent implements OnInit {
       let order = this.orders.find((order)=>order._id=id);
       order.orderStatus='Completed';
       this.orderService.updateOrder(order).subscribe(
-        (res)=>{console.log(res)},
+        (res)=>{
+          this.orderService.getAllOrders().subscribe(
+            (res:any)=>{
+              this.orders = res ;
+              this.allOrders = res;
+              this.lastPage = this.orders.length / this.pageSize;
+              this.calculateNumOfPages();
+            },
+            (err)=>{console.error(err)},
+            ()=>{}
+          )
+        },
         (err)=>{console.error(err)},
         ()=>{},
       )
@@ -156,7 +180,18 @@ export class OrdersComponent implements OnInit {
       let order = this.orders.find((order)=>order._id=id);
       order.orderStatus='Cancelled';
       this.orderService.updateOrder(order).subscribe(
-        (res)=>{console.log(res)},
+        (res)=>{
+          this.orderService.getAllOrders().subscribe(
+            (res:any)=>{
+              this.orders = res ;
+              this.allOrders = res;
+              this.lastPage = this.orders.length / this.pageSize;
+              this.calculateNumOfPages();
+            },
+            (err)=>{console.error(err)},
+            ()=>{}
+          )
+        },
         (err)=>{console.error(err)},
         ()=>{},
       )

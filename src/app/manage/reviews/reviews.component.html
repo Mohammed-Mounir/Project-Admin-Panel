@@ -18,38 +18,46 @@
           <tr>
             <td>
               <input
+              class="form-control"
                 type="text"
                 name="reviewerId"
                 (input)="onSearch(reviewerIdInput)"
                 #reviewerIdInput
+                placeholder="Search By Id"
               />
             </td>
             <td>
               <input
+              class="form-control"
                 type="text"
                 name="reviewerName"
                 (input)="onSearch(reviewerNameInput)"
                 #reviewerNameInput
+                placeholder="Search By Name"
               />
             </td>
             <td>
               <input
+              class="form-control"
                 type="text"
                 name="reviewerVote"
                 (input)="onSearch(reviewerVoteInput)"
                 #reviewerVoteInput
+                placeholder="Search By Review Vote"
               />
             </td>
             <td>
               <input
+              class="form-control"
                 type="text"
                 name="productId"
                 (input)="onSearch(productIdInput)"
                 #productIdInput
+                placeholder="Search By Product Id"
               />
             </td>
             <td>
-              <p class="fw-bold">Display/Delete</p>
+              <p class="fw-bold text-center">Display/Delete</p>
             </td>
           </tr>
           <tr *ngFor="let review of getSlicedArrOfReviews(); let i = index">
@@ -57,7 +65,7 @@
             <td>{{ review.reviewerName }}</td>
             <td>{{ review.reviewVote }}</td>
             <td>{{ review.productID }}</td>
-            <td>
+            <td class="text-center">
               <i
                 class="fas fa-eye view fs-6 me-2"
                 data-bs-toggle="modal"

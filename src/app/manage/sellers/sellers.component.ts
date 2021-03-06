@@ -37,6 +37,9 @@ export class SellersComponent implements OnInit {
     for (let index = 0; index < this.sellers.length / this.pageSize; index++) {
       this.numOfPages.push(index + 1);
     }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
+    }
   }
   delete(id) {
     this.sellersService.deleteSeller(id).subscribe(
@@ -71,7 +74,8 @@ export class SellersComponent implements OnInit {
       (res) => {
         if(res){
           this.sellers = res;
-          this.sellers=this.sellersService.searchById(res,id)
+          this.sellers=this.sellersService.searchById(res,id);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }
@@ -86,7 +90,8 @@ export class SellersComponent implements OnInit {
       (res) => {
         if(res){
           this.sellers = res;
-          this.sellers=this.sellersService.SearchByName(res,name)
+          this.sellers=this.sellersService.SearchByName(res,name);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }
@@ -101,7 +106,8 @@ export class SellersComponent implements OnInit {
       (res) => {
         if(res){
           this.sellers = res;
-          this.sellers=this.sellersService.SearchByCategory(res,category)
+          this.sellers=this.sellersService.SearchByCategory(res,category);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }
@@ -116,7 +122,8 @@ export class SellersComponent implements OnInit {
       (res) => {
         if(res){
           this.sellers = res;
-          this.sellers=this.sellersService.SearchByEmail(res,email)
+          this.sellers=this.sellersService.SearchByEmail(res,email);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }

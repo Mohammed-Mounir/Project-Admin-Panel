@@ -37,6 +37,9 @@ export class ShipmentsComponent implements OnInit {
     for (let index = 0; index < this.shipments.length / this.pageSize; index++) {
       this.numOfPages.push(index + 1);
     }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
+    }
   }
   delete(id) {
     this.shipmentsService.deleteShipments(id).subscribe(
@@ -71,7 +74,8 @@ export class ShipmentsComponent implements OnInit {
       (res) => {
         if(res){
           this.shipments = res;
-          this.shipments=this.shipmentsService.searchById(res,id)
+          this.shipments=this.shipmentsService.searchById(res,id);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }
@@ -86,7 +90,8 @@ export class ShipmentsComponent implements OnInit {
       (res) => {
         if(res){
           this.shipments = res;
-          this.shipments=this.shipmentsService.searchByPayment(res,payment)
+          this.shipments=this.shipmentsService.searchByPayment(res,payment);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }
@@ -101,7 +106,8 @@ export class ShipmentsComponent implements OnInit {
       (res) => {
         if(res){
           this.shipments = res;
-          this.shipments=this.shipmentsService.searchByCompany(res,company)
+          this.shipments=this.shipmentsService.searchByCompany(res,company);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }
@@ -117,7 +123,8 @@ export class ShipmentsComponent implements OnInit {
       (res) => {
         if(res){
           this.shipments = res;
-          this.shipments=this.shipmentsService.searchByDate(res,date)
+          this.shipments=this.shipmentsService.searchByDate(res,date);
+          this.calculateNumOfPages();
         }else{
           this.message = 'Data Not Found';
         }

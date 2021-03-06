@@ -12,7 +12,7 @@ export class ReviewsComponent implements OnInit {
   reviewsCopy: Review[] = [];
 
   numOfPages: number[] = [];
-  pageSize = 9;
+  pageSize = 30;
   currentPage = 0;
   lastPage = 0;
 
@@ -58,6 +58,9 @@ export class ReviewsComponent implements OnInit {
     this.numOfPages = [];
     for (let index = 0; index < this.reviews.length / this.pageSize; index++) {
       this.numOfPages.push(index + 1);
+    }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
     }
   }
 

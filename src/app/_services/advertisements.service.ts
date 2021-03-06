@@ -155,8 +155,8 @@ export class AdvertisementsService {
     advertisements;
 
 
-    baseUrl = 'http://localhost:3000/';
-
+    /* baseUrl = 'http://localhost:3000/'; */
+    baseUrl = 'https://iti-amzon-backend.herokuapp.com/';
     constructor(private httpClient: HttpClient) { }
 
 

@@ -86,7 +86,7 @@ export class UsersComponent implements OnInit {
 
         this.users = res;
         this.users = this.usersService.SearchById(res, searchquery);
-        console.log('onSearchById', this.users.length);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -104,7 +104,7 @@ export class UsersComponent implements OnInit {
 
         this.users = res;
         this.users = this.usersService.SearchByEmail(res, searchquery);
-        console.log('onSearchByEmail', this.users.length);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -121,7 +121,7 @@ export class UsersComponent implements OnInit {
 
         this.users = res;
         this.users = this.usersService.SearchByName(res, searchquery);
-        console.log('onSearchByName', this.users.length);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -138,7 +138,7 @@ export class UsersComponent implements OnInit {
 
         this.users = res;
         this.users = this.usersService.SearchByDate(res, searchquery);
-        console.log('onSearchByDate', this.users.length);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -159,6 +159,9 @@ export class UsersComponent implements OnInit {
     this.numOfPages = [];
     for (let index = 0; index < this.users.length / this.pageSize; index++) {
       this.numOfPages.push(index + 1);
+    }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
     }
   }
 

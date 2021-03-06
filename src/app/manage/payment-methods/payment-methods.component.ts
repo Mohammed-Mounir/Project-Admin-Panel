@@ -118,6 +118,9 @@ export class PaymentMethodsComponent implements OnInit {
     ) {
       this.numOfPages.push(index + 1);
     }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
+    }
   }
 
   onSearch(searchInput) {

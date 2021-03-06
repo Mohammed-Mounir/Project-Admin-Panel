@@ -8,9 +8,9 @@ import { AdvertisementsService } from 'src/app/_services/advertisements.service'
   styleUrls: ['./advertisements.component.scss']
 })
 export class AdvertisementsComponent implements OnInit {
-  advertisements;
+  advertisements =[];
   numOfPages: number[] = [];
-
+  message = 'Loading ...';
   pageSize = 30;
 
   currentPage = 0;
@@ -20,7 +20,7 @@ export class AdvertisementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.advertisementsService.getAllAds().subscribe(
-      (res) => {
+      (res:any) => {
 
         this.advertisements = res;
         // console.log(res);
@@ -89,11 +89,11 @@ export class AdvertisementsComponent implements OnInit {
     // this.advertisements = this.advertisementsService.SearchById(searchquery);
 
     this.advertisementsService.getAllAds().subscribe(
-      (res) => {
+      (res:any) => {
 
         this.advertisements = res;
         this.advertisements = this.advertisementsService.SearchById(res, searchquery);
-        console.log('onSearchById', this.advertisements);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -110,11 +110,11 @@ export class AdvertisementsComponent implements OnInit {
     // console.log(searchquery);
     // this.advertisements = this.advertisementsService.SearchByName(searchquery);
     this.advertisementsService.getAllAds().subscribe(
-      (res) => {
+      (res:any) => {
 
         this.advertisements = res;
         this.advertisements = this.advertisementsService.SearchByName(res, searchquery);
-        console.log('onSearchByName', this.advertisements);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -130,11 +130,11 @@ export class AdvertisementsComponent implements OnInit {
     // console.log(searchquery);
     // this.advertisements = this.advertisementsService.SearchByTitle(searchquery);
     this.advertisementsService.getAllAds().subscribe(
-      (res) => {
+      (res:any) => {
 
         this.advertisements = res;
         this.advertisements = this.advertisementsService.SearchByTitle(res, searchquery);
-        console.log('onSearchByTitle', this.advertisements);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -151,11 +151,11 @@ export class AdvertisementsComponent implements OnInit {
     // this.advertisements = this.advertisementsService.SearchByDate(searchquery);
 
     this.advertisementsService.getAllAds().subscribe(
-      (res) => {
+      (res:any) => {
 
         this.advertisements = res;
         this.advertisements = this.advertisementsService.SearchByDate(res, searchquery);
-        console.log('onSearchByDate', this.advertisements);
+        this.calculateNumOfPages();
 
       },
       (err) => {
@@ -176,6 +176,9 @@ export class AdvertisementsComponent implements OnInit {
     this.numOfPages = [];
     for (let index = 0; index < this.advertisements.length / this.pageSize; index++) {
       this.numOfPages.push(index + 1);
+    }
+    if(this.numOfPages.length===0){
+      this.numOfPages.push(0)
     }
   }
 

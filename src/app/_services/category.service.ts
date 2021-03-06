@@ -39,6 +39,17 @@ export class CategoryService {
     });
   }
 
+  editCategory2(categoryId: string, catName, subCat: string[], images) {
+    console.log('edit2');
+
+    return this.httpClient.post(this.baseUrl + 'api/categories', {
+      _id: categoryId,
+      name: catName,
+      sub: subCat,
+      images: images,
+    });
+  }
+
   removeSubCategory(categoryId: string, SubCategoryName: string) {
     this.geCategoryById(categoryId).subscribe((res) => {
       let subArr = res['sub'];

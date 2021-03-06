@@ -1,3 +1,4 @@
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_services/category.service';
 
@@ -121,5 +122,37 @@ export class CategoriesComponent implements OnInit {
         return t.includes(true);
       });
     }
+  }
+
+  Editaall() {
+    console.log('enter');
+
+    var images = [];
+    console.log(this.categories);
+
+    this.categories.forEach((element) => {
+      var catName = element.name;
+      var catSub = element.sub;
+      var catId = element._id;
+      catSub.forEach((sub) => {
+        var obj = {
+          name: sub,
+          URL: '',
+        };
+        images.push(obj);
+      });
+      console.log(images);
+
+      this.categoryService
+        .editCategory2(catId, catName, catSub, images)
+        .subscribe(
+          (res) => {
+            console.log('done');
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    });
   }
 }

@@ -40,6 +40,14 @@ export class ProductsComponent implements OnInit {
       (err)=>{console.error(err)},
       ()=>{},
     )
+    this.categoryService.getAllCategories().subscribe(
+      (res)=>{
+        this.categories = res;
+        this.allCategories = res;
+      },
+      ()=>{},
+      ()=>{},
+    )
     this.productService.getAllProducts().subscribe(
       (res:any)=>{
         this.products = res;
@@ -50,8 +58,6 @@ export class ProductsComponent implements OnInit {
       (err)=>{console.error(err)},
       ()=>{}
     );
-    this.categories = this.categoryService.getAllCategories();
-    this.allCategories = this.categoryService.getAllCategories();
     this.colors = this.colorService.allColors();
   }
   calculateNumOfPages() {
@@ -69,7 +75,7 @@ export class ProductsComponent implements OnInit {
     return this.products.slice(start, end);
   }
   sellerName(id){    
-    if(id){
+    if(id!=undefined && this.sellers && this.sellers.length!=0){
       return this.sellers.find((seller)=>seller._id===id).sellerName
     }
      else
@@ -85,6 +91,15 @@ export class ProductsComponent implements OnInit {
       }
     }
     return 'undefined'  
+  }
+  categoryName(id){
+    if(id!=undefined && this.sellers && this.sellers.length!=0){
+      return this.categories.find((cat)=>cat._id===id).name;
+    }
+     else
+     {
+      return 'undefined' 
+     }
   }
   color(colors)
   {

@@ -22,6 +22,7 @@
                 (input)="search('id')"
                 [(ngModel)]="idSearch"
                 type="text"
+                class="form-control"
               />
             </td>
             <td scope="col">
@@ -29,6 +30,7 @@
                 (input)="search('name')"
                 [(ngModel)]="nameSearch"
                 type="text"
+                class="form-control"
               />
             </td>
             <td scope="col">
@@ -36,6 +38,7 @@
                 (input)="search('sub')"
                 [(ngModel)]="subSearch"
                 type="text"
+                class="form-control"
               />
             </td>
           </tr>
@@ -56,7 +59,7 @@
               </tr>
               <tr *ngIf="CatId == category._id">
                 <td>
-                  <input [(ngModel)]="subText" type="text" />
+                  <input [(ngModel)]="subText" type="text" class="form-control"/>
                 </td>
                 <td>
                   <button (click)="AddSubCat(category.name, category.sub)">
@@ -68,11 +71,13 @@
 
             <td>
               <i
-                class="fas fa-edit mx-2"
+                class="fas fa-edit mx-2 view"
+                style="cursor: pointer;"
                 (click)="editCat(category._id, category.name)"
               ></i>
               <i
-                class="fas fa-trash-alt"
+                class="fas fa-trash-alt trash"
+                style="cursor: pointer;"
                 (click)="RemoveCat(category._id, CatRow)"
               ></i>
             </td>
@@ -84,6 +89,7 @@
                 #newCatName
                 type="text"
                 placeholder="new Category name to add"
+                class="form-control"
               />
             </td>
             <td scope="col">
@@ -91,6 +97,7 @@
                 #newCatSub
                 type="text"
                 placeholder="new sub Category to add"
+                class="form-control"
               />
             </td>
             <td scope="col">

@@ -96,7 +96,7 @@
                           </li>
                           <li *ngIf='Product.productRate'>Product Rate : {{Product.productRate}} </li>
                           <li *ngIf='Product.productType'>Product Type : {{Product.productType}} </li>
-                          <li *ngIf='Product.productCategory'>Category : {{Product.productCategory}} </li>
+                          <li *ngIf='Product.productCategory'>Category : {{categoryName(Product.productCategory)}} </li>
                           <li *ngIf='Product.productSubCategory'>Sub Category : {{Product.productSubCategory}} </li>
                           <li *ngIf='Product.keywords'>Product Keywords : {{spreadArray(Product.keywords)}} </li>
                           <li>WareHouse : {{warehouseName(Product.warehouseId)}} </li>

@@ -102,7 +102,7 @@
                           <li>WareHouse : {{warehouseName(Product.warehouseId)}} </li>
                           <li *ngIf='Product.productStock'>Product Stock : {{Product.productStock}} </li>
                           <li >Seller Name : {{sellerName(Product.productSales)}} </li>
-                          <img *ngIf='Product.productImages' id="adImg" [src]="Product.productImages"> 
+                          <img *ngIf='Product.productImages' id="adImg" [src]="Product.productImages[0]"> 
                         </ul>
   
                       </div>

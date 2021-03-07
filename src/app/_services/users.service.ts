@@ -3,31 +3,23 @@ import { Injectable } from '@angular/core';
 import { User } from '../_model/users';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
-  users:User[]=[];
+  users: User[] = [];
 
-
-  /* baseUrl = 'http://localhost:3000/'; */
   baseUrl = 'https://iti-amzon-backend.herokuapp.com/';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getAllUsers() {
-
     return this.httpClient.get(`${this.baseUrl}users`);
-
   }
   getUserById(id) {
-
     return this.httpClient.get(`${this.baseUrl}user/id/${id}`);
-
   }
-  
 
   addUser(user: User) {
-
     const newUser: User = {
       // _id: user._id,
       userName: user.userName,
@@ -38,15 +30,12 @@ export class UsersService {
       address: user.address,
       password: user.password,
       repeatedPassword: user.repeatedPassword,
-
     };
 
-   return  this.httpClient.post(`${this.baseUrl}user/register`, newUser);
+    return this.httpClient.post(`${this.baseUrl}user/register`, newUser);
+  }
 
-  } 
-
-  updateUser(user: User){
-
+  updateUser(user: User) {
     const updatedUser: User = {
       _id: user._id,
       userName: user.userName,
@@ -57,67 +46,53 @@ export class UsersService {
       address: user.address,
       password: user.password,
       repeatedPassword: user.repeatedPassword,
-
     };
 
-  return  this.httpClient.put(`${this.baseUrl}user`, updatedUser);
+    return this.httpClient.put(`${this.baseUrl}user`, updatedUser);
   }
 
   deleteUser(id: string) {
-
     // const idToBeDeleted = id;
     console.log('service', id);
-    
-   return this.httpClient.delete(`${this.baseUrl}user/${id}`);
+
+    return this.httpClient.delete(`${this.baseUrl}user/${id}`);
   }
-
-
 
   SearchById(res, searchQuery) {
     const userID = searchQuery.toLowerCase();
     this.users = res;
-    return this.users.filter(u => u._id.toLowerCase().includes(userID));
-
+    return this.users.filter((u) => u._id.toLowerCase().includes(userID));
   }
 
   SearchByEmail(res, searchQuery) {
     const userAddress = searchQuery.toLowerCase();
     this.users = res;
-    return this.users.filter(u => u.email.toLowerCase().includes(userAddress));
-
+    return this.users.filter((u) =>
+      u.email.toLowerCase().includes(userAddress)
+    );
   }
 
   SearchByName(res, searchQuery) {
     const userNAME = searchQuery.toLowerCase();
     this.users = res;
-    
-    
-    return this.users.filter(u => u.userName.toLowerCase().includes(userNAME));
 
+    return this.users.filter((u) =>
+      u.userName.toLowerCase().includes(userNAME)
+    );
   }
-
 
   SearchByDate(res, searchQuery) {
-    
-    
     let userDate = searchQuery.toLowerCase();
     this.users = res;
-    // console.log(this.users);
-    return this.users.filter(u =>{
+
+    return this.users.filter((u) => {
       if (u.dateOfRegister == undefined || null) {
-        u.dateOfRegister = ''; 
-        // console.log('if', u.dateOfRegister);
-    return  u.dateOfRegister.toLowerCase().includes(userDate);
+        u.dateOfRegister = '';
 
+        return u.dateOfRegister.toLowerCase().includes(userDate);
       } else {
-        // console.log('else', u.dateOfRegister);
-        
-      return  u.dateOfRegister.toLowerCase().includes(userDate);
+        return u.dateOfRegister.toLowerCase().includes(userDate);
       }
-    }
-    );
-
+    });
   }
 }
-
-

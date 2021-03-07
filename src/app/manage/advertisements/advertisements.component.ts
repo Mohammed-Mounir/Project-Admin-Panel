@@ -23,7 +23,7 @@ export class AdvertisementsComponent implements OnInit {
       (res:any) => {
 
         this.advertisements = res;
-        // console.log(res);
+      
         console.log('onInit', this.advertisements.length);
         this.lastPage = this.advertisements.length / this.pageSize;
         this.calculateNumOfPages();

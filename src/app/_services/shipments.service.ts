@@ -41,7 +41,7 @@ searchById(res,id){
   }
  
   deleteShipments(id: string) {
-    console.log(id)
+  
     return this.httpClinet.delete(this.baseUrl+'api/shipments/'+id);
   }
     

@@ -6,8 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoryService {
   category: Category[];
-  // baseUrl = 'https://iti-amzon-backend.herokuapp.com/';
-  baseUrl = 'http://localhost:3000/';
+   baseUrl = 'https://iti-amzon-backend.herokuapp.com/';
   constructor(private httpClient: HttpClient) {}
 
   getAllCategories() {

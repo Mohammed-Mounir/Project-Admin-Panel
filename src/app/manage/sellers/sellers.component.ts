@@ -101,10 +101,11 @@ export class SellersComponent implements OnInit {
     )
   }
 
-  categorySearch(category) {
+  categorySearch(category:string) {
     this.sellersService.getAllSellers().subscribe(
       (res) => {
         if(res){
+          console.log(category)
           this.sellers = res;
           this.sellers=this.sellersService.SearchByCategory(res,category);
           this.calculateNumOfPages();

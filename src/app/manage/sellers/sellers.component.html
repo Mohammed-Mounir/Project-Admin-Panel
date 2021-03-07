@@ -62,7 +62,7 @@
                          <li>Seller id : {{seller._id }}</li>
                          <li>Seller name : {{ seller.sellerName }}</li>
                          <li>Category : {{seller.category }} </li>
-                         <li>Address : {{seller.address.street}}-{{seller.address.city}}-{{seller.address.country}}</li>
+                         <li>Address : {{seller.address&&seller.address.street}}-{{seller.address&&seller.address.city}}-{{seller.address&&seller.address.country}}</li>
                          <li>Email : {{seller.email}} </li>
                          <li>Short description : {{seller.shortDesc}} </li>
                          <li><img id="adImg" src={{seller.logoImg}}> </li>

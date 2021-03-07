@@ -26,10 +26,10 @@ searchById(res,id){
     return this.sellers.filter(seller => seller.sellerName.toLowerCase().includes(sellerName));
   }
 
-  SearchByCategory(res,category) {
-    const sellerCategory = category.toLowerCase();
+  SearchByCategory(res,myCategory) {
+    const sellerCategory = myCategory.toLowerCase();
     this.sellers = res;
-    return this.sellers.filter(seller => seller.category.toLowerCase().includes(sellerCategory));
+    return this.sellers.filter(seller => seller.category&&seller.category.toLowerCase().includes(sellerCategory));
   }
 
   SearchByEmail(res,email) {
